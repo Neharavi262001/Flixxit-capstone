@@ -1,0 +1,119 @@
+import React, { useEffect, useState } from 'react'
+import { useSelector,useDispatch } from 'react-redux'
+import { useNavigate,Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import navLogo from '../../images/flixxit_logo.png'
+import { useUpdateProfileMutation } from '../../redux/user/userApiSlice'
+import { setCredentials } from '../../redux/auth/authSlice'
+import './profileForm.css'
+
+const ProfileForm = () => {
+  const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const navigate=useNavigate()
+    const dispatch =useDispatch()
+
+    const {userInfo}=useSelector((state)=>state.auth)
+   const [updateProfile,{isLoading}]=useUpdateProfileMutation()
+    
+    useEffect(()=>{
+       setName(userInfo.name);
+       setEmail(userInfo.email)
+    },[userInfo.setName,userInfo.setEmail])
+
+    
+    const handleSubmit=async(e)=>{
+        e.preventDefault()
+        
+        if (newPassword !== confirmPassword){
+            toast.error('Passwords donot match')
+        }else{
+          try {
+            const response =await updateProfile({
+              _id:userInfo._id,
+              name,
+              email,
+              newPassword
+            }).unwrap()
+            dispatch(setCredentials({...response}))
+            toast.success('Profile updated successfully')
+          } catch (err) {
+            toast(err.data?.message || err.error);  
+          }
+        }
+    }   
+  return (
+    <div className='profile-form'>
+     <h1>Update user details</h1>
+     <div className="nav-top">
+            <img src={ navLogo || "https://app.gemoo.com/share/image-annotation/604743199318691840?codeId=vzxlEYOROQBX9&origin=imageurlgenerator&card=604743196353318912"} alt="logo" width='150px' height='35px' />
+           
+        </div>
+        <div className="login-container">
+            
+            <div className="form">
+                
+    
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <input 
+                                 type="text" 
+                                id="name"
+                                name="name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                placeholder='Enter your userName' />
+            </div>
+            <div className="form-group">
+                <input 
+                    type="email" 
+                    id="email"
+                    name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder='Enter your email address' />
+            </div>
+            <div className="form-group">
+                <input 
+                    type="password" 
+                    name="password" 
+                    value={password}
+                    id="password" 
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder='Enter your password' />
+            </div>
+            <div className="form-group">
+                <input 
+                    type="password" 
+                    name="newPassword" 
+                    value={newPassword}
+                    id="newPassword" 
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    placeholder='Enter new Password' />
+            </div>
+            <div className="form-group">
+                <input 
+                    type="password" 
+                    name="confirmPassword" 
+                    value={confirmPassword}
+                    id="confirmPassword" 
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    placeholder='Confirm password' />
+            </div>
+          {isLoading&& <h3>Loading..... please wait</h3>}
+           <div className="form-group">
+            <button className="btn-block">Update</button>
+           </div>
+        </form>
+    </div>
+        
+    </div>
+  
+    </div>
+  )
+}
+
+export default ProfileForm

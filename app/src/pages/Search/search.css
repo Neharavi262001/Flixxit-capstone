@@ -1,0 +1,14 @@
+.search-results{
+    color: white;
+}
+
+.search-results{
+    margin: 5rem;
+}
+
+.result-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    padding: 16px;
+}
