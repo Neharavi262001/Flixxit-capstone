@@ -46,7 +46,7 @@ const checkoutSession = asyncHandler(async (req, res) => {
       return;
     }
     const session = await stripe.checkout.sessions.create({
-      //billing_address_collection: 'auto',
+     
       payment_method_types: ['card'], 
       line_items: [
         {
@@ -62,7 +62,7 @@ const checkoutSession = asyncHandler(async (req, res) => {
       customer:user.stripeCustomerId
       
     });
-    //console.log(user.stripeCustomerId)
+ 
   
     res.json({ sessionId: session.id, session,checkoutUrl: session.url });
   } catch (error) {
@@ -74,56 +74,43 @@ const checkoutSession = asyncHandler(async (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-const subscribeToPlan = asyncHandler(async (req, res) => {
-  const { userId, planId } = req.body;
-
-  try {
-    const user = await User.findById(userId);
-    const subscriptionPlan = await Subscription.findById(planId);
-
-    if (!user || !subscriptionPlan) {
-      res.status(404);
-      throw new Error('User or Subscription Plan not found');
-    }
-
-    // Assign the subscription plan to the user
-    user.subscription = subscriptionPlan._id;
-    await user.save();
-
-    res.json({ message: 'Subscription successful', user });
-  } catch (error) {
-    res.status(500);
-    throw new Error('Internal Server Error');
-  }
-});
-
 const viewUserSubscriptionDetails = asyncHandler(async (req, res) => {
-  const userId = req.user._id;
-
   try {
-    const user = await User.findById(userId).populate('subscription');
-    if (user) {
-      res.json({ subscription: user.subscription });
-    } else {
-      res.status(404).json({ message: 'User not found' });
+    
+    if (!req.user) {
+      res.status(401).json({ error: 'User not authenticated' });
+      return;
     }
+    const user = await User.findById(req.user);
+
+    if (!user) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+
+    const subscriptions = await stripe.subscriptions.list({
+      customer: user.stripeCustomerId,
+    });
+
+    // console.log(subscriptions)
+    // res.json(subscriptions)
+    const subscriptionDetails = subscriptions.data.map((subscription) => ({
+      id: subscription.id,
+      status: subscription.status,
+      current_period_end: subscription.current_period_end,
+      price: subscription.items.data[0].price.id,
+      plan: subscription.items.data[0].price.recurring.interval,
+       amount :subscription.payment_settings.payment_method_options.card.mandate_options.amount /100,
+   planName :subscription.payment_settings.payment_method_options.card.mandate_options.description,
+    }));
+    
+
+    res.json(subscriptionDetails);
   } catch (error) {
-    res.status(500);
-    throw new Error('Internal Server Error');
+    console.error('Error fetching user subscription details:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
-module.exports = { viewAvailableSubscriptions,checkoutSession, subscribeToPlan, viewUserSubscriptionDetails };
+
+module.exports = { viewAvailableSubscriptions,checkoutSession,  viewUserSubscriptionDetails };

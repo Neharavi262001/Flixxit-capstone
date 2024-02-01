@@ -7,7 +7,7 @@ const {
     updateUserProfile,
     
                     } = require('../controllers/userController')
-const { viewAvailableSubscriptions, checkoutSession } = require('../controllers/subscriptionController')
+const { viewAvailableSubscriptions, checkoutSession, viewUserSubscriptionDetails } = require('../controllers/subscriptionController')
 const router=express.Router()
 const {protectedRoutes} =require('../middlewares/authenticationMiddleware')
 const { addToWatchlist, getWatchlist, removeFromWatchlist, clearWatchlist } = require('../controllers/watchlistController')
@@ -21,6 +21,7 @@ router.put('/profile',protectedRoutes,updateUserProfile)
 
 router.get('/subscribe',protectedRoutes,viewAvailableSubscriptions)
 router.post('/checkout',protectedRoutes,checkoutSession)
+router.get('/subscriptionDetails',protectedRoutes,viewUserSubscriptionDetails)
 
 router.get('/watchList',protectedRoutes,getWatchlist)
 router.post('/watchList',protectedRoutes,addToWatchlist)
