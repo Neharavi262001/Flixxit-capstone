@@ -92,16 +92,15 @@ const viewUserSubscriptionDetails = asyncHandler(async (req, res) => {
       customer: user.stripeCustomerId,
     });
 
-    // console.log(subscriptions)
-    // res.json(subscriptions)
+   
     const subscriptionDetails = subscriptions.data.map((subscription) => ({
       id: subscription.id,
       status: subscription.status,
       current_period_end: subscription.current_period_end,
       price: subscription.items.data[0].price.id,
       plan: subscription.items.data[0].price.recurring.interval,
-       amount :subscription.payment_settings.payment_method_options.card.mandate_options.amount /100,
-   planName :subscription.payment_settings.payment_method_options.card.mandate_options.description,
+      amount :subscription.payment_settings.payment_method_options.card.mandate_options.amount /100,
+      planName :subscription.payment_settings.payment_method_options.card.mandate_options.description,
     }));
     
 

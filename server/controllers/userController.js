@@ -8,12 +8,48 @@ const loginUser=asyncHandler(async(req,res)=>{
 
    const user = await User.findOne({email})
    if (user &&(await user.matchPassword(password))){
-    generateToken(res,user._id)
-    res.status(201).json({
-        _id:user._id,
-        name:user.name,
-        email:user.email
-    })
+
+    if (!user.stripeCustomerId) {
+      res.status(401).json({ error: 'User does not have a Stripe customer ID' });
+      return;
+    }
+    try {
+      const subscriptions = await stripe.subscriptions.list({
+        customer: user.stripeCustomerId,
+      });
+  
+      console.log('All Subscriptions:', subscriptions);
+  
+      const hasActiveSubscription = subscriptions.data.some(
+        (subscription) => subscription.status === 'active'
+      );
+      console.log('Has Active Subscription:', hasActiveSubscription);
+  
+  
+      generateToken(res,user._id)
+
+        if (hasActiveSubscription) {
+        res.status(201).json({
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          hasActiveSubscription: true,
+        });
+      } else {
+        res.status(201).json({
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          hasActiveSubscription: false,
+          message: 'User does not have an active subscription',
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching subscriptions:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+    
 }else{
     res.status(401)
     throw new Error('Invalid credentials')
