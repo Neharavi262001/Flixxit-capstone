@@ -82,7 +82,7 @@ useEffect(() => {
           
           <Route path='/login' element={<Login/>}/>
           <Route path='/register'element={<Register/>}/>
-        
+          <Route path='/subscribe' element={<Subscription/>}/>
           {/* Private Routes */}
           <Route path='' element={<AuthRoutes/>}>
             
@@ -106,7 +106,7 @@ useEffect(() => {
          
             <Route path='/profile'element={<Profile/>}/> 
             <Route path='/updateProfile'element={<ProfileForm/>}/>
-            <Route path='/subscribe' element={<Subscription/>}/>
+           
             <Route path='/invoice' element={<Invoice/>}/>
 
           </Route>

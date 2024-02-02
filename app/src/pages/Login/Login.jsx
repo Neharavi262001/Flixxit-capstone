@@ -23,11 +23,14 @@ const Login = () => {
 
     const {userInfo}=useSelector((state)=>state.auth)
 
-    useEffect(()=>{
-        if (userInfo){
-            navigate('/')
-        }
-    },[navigate,userInfo])
+    // useEffect(()=>{
+    //     if (userInfo){
+    //         navigate('/')
+    //     }
+    //     else{
+    //         navigate('/subscribe')
+    //     }
+    // },[navigate,userInfo])
 
     const handleOnChange=(e)=>{
         setFormData((prevState)=>({
@@ -39,10 +42,21 @@ const Login = () => {
         e.preventDefault()
         try {
             const response=await login(formData).unwrap()
-            dispatch(setCredentials({...response}))
-            
-            navigate('/')
+            console.log('Response:', response);
+
+            const hasActiveSubscription = response.hasActiveSubscription;
+            if (hasActiveSubscription) {
+                dispatch(setCredentials({...response}))
+                navigate('/');
+              } else {
+                <button><Link to="/subscribe">Go to Subscribe Page</Link></button>
+                toast('User does not have an active subscription');
+                
+                
+                navigate('/subscribe')
+              }
         } catch (err) {
+            console.error('Error during login:', err);
             toast(err.data?.message || err.error);
         }
     }
@@ -87,6 +101,7 @@ const Login = () => {
               <div className="form-group">
                   <p> Doesn't have an account ? <Link to='/register'>Register</Link></p>
                   <button className="btn-block">Sign in</button>
+                  <Link to='/subscribe'>Subscribe</Link>
               </div>
           </form>
       </div>

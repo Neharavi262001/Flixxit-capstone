@@ -26,9 +26,12 @@ const loginUser=asyncHandler(async(req,res)=>{
       console.log('Has Active Subscription:', hasActiveSubscription);
   
   
-      generateToken(res,user._id)
+      //generateToken(res,user._id)
 
         if (hasActiveSubscription) {
+
+          generateToken(res,user._id)
+
         res.status(201).json({
           _id: user._id,
           name: user.name,
@@ -41,8 +44,7 @@ const loginUser=asyncHandler(async(req,res)=>{
           name: user.name,
           email: user.email,
           hasActiveSubscription: false,
-          message: 'User does not have an active subscription',
-        });
+      });
       }
     } catch (error) {
       console.error('Error fetching subscriptions:', error);

@@ -6,8 +6,10 @@ import React from 'react'
 
 const authRoutes = () => {
   const {userInfo}=useSelector((state)=>state.auth)
+  const hasActiveSubscription = userInfo && userInfo.hasActiveSubscription;
   return (
-    userInfo ? <Outlet/> : <Navigate to='login' replace/>
+    hasActiveSubscription ? <Outlet /> : <Navigate to="/login" replace />
+    // userInfo ? <Outlet/> : <Navigate to='login' replace/>
   )
 }
 

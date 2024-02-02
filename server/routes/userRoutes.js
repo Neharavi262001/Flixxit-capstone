@@ -19,7 +19,7 @@ router.get('/profile',protectedRoutes,userProfile)
 router.put('/profile',protectedRoutes,updateUserProfile)
 
 
-router.get('/subscribe',protectedRoutes,viewAvailableSubscriptions)
+router.get('/subscribe',viewAvailableSubscriptions)
 router.post('/checkout',protectedRoutes,checkoutSession)
 router.get('/subscriptionDetails',protectedRoutes,viewUserSubscriptionDetails)
 
