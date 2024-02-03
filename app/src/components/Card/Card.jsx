@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useAddToWatchlistMutation,useGetWatchlistQuery } from '../../redux/user/userApiSlice'
 
 export default React.memo( function Card({id,title,imageUrl,itemGenre,handleNavigate})  {
-  //const dispatch = useDispatch();
+  
   const navigate = useNavigate();
   const { userInfo } = useSelector((state) => state.auth);
   const [addToWatchlist] = useAddToWatchlistMutation();

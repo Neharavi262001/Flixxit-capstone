@@ -1,6 +1,6 @@
 const Watchlist=require('../models/watchlistModel')
 const asyncHandler=require('express-async-handler')
-const mongoose=require('mongoose')
+
 const addToWatchlist=asyncHandler(async(req,res)=>{
  
    try {

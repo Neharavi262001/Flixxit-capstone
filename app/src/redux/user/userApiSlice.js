@@ -63,7 +63,7 @@ export const userApiSlice=apiSlice.injectEndpoints({
               method: 'GET',
 
             }),
-            providesTags:['User']
+            providesTags:['Watchlist']
             
           }),
 
@@ -73,7 +73,7 @@ export const userApiSlice=apiSlice.injectEndpoints({
               method: 'POST',
               body: newItem,
             }),
-            invalidatesTags:['User']
+            invalidatesTags:['Watchlist']
           }),
           
           removeFromWatchlist: builder.mutation({
@@ -81,7 +81,7 @@ export const userApiSlice=apiSlice.injectEndpoints({
               url: `${USERS_BACKEND_URL}/watchList/${contentId}`,
               method: 'DELETE',
             }),
-            invalidatesTags:['User']
+            invalidatesTags:['Watchlist']
           }),
 
           
@@ -90,8 +90,38 @@ export const userApiSlice=apiSlice.injectEndpoints({
           url: `${USERS_BACKEND_URL}/watchList`,
           method: 'DELETE',
         }),
-        invalidatesTags:['User']
+        invalidatesTags:['Watchlist']
       }),
+
+      getRating: builder.query({
+        query: () => ({
+          url: `${USERS_BACKEND_URL}/rating`,
+          method: 'GET',
+
+        }),
+        providesTags:['Rate']
+        
+      }),
+
+      like: builder.mutation({
+        query: (contentId) => ({
+          url: `${USERS_BACKEND_URL}/like/${contentId}`,
+          method: 'POST',
+        }),
+        invalidatesTags:['Rate']
+      }),
+
+      dislike:builder.mutation({
+        query: (contentId) => ({
+          url: `${USERS_BACKEND_URL}/dislike/${contentId}`,
+          method: 'POST',
+        }),
+        invalidatesTags:['Rate']
+      }),
+
+
+
+      
 
 
 
@@ -110,5 +140,8 @@ export const {useLoginMutation,
             useClearWatchlistMutation,
             useRemoveFromWatchlistMutation,
             useGetSubscriptionPlansQuery,
-            useCreateSessionMutation
+            useCreateSessionMutation,
+            useGetRatingQuery,
+            useLikeMutation,
+            useDislikeMutation
         }=userApiSlice

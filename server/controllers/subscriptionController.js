@@ -1,6 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const User = require('../models/userModel');
-const Subscription = require('../models/subscriptionModel');
+
 const {stripe}=require('../utils/stripe')
 
 const viewAvailableSubscriptions = asyncHandler(async (req, res) => {
