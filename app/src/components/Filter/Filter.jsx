@@ -4,7 +4,7 @@ import { fetchContent } from '../../utils/tmdb';
 import { fetchGenres } from '../../utils/tmdb';
 import { useDispatch, useSelector } from 'react-redux';
 
-const Filter = ({ genre,setGenre }) => {
+const Filter = () => {
   const dispatch = useDispatch()
   const [options, setOptions] = useState([]);
   const { genres } = useSelector((state) => state.content);
@@ -32,6 +32,7 @@ const Filter = ({ genre,setGenre }) => {
   useEffect(()=>{
     fetchGenresData()
   },[dispatch])
+  
   const onChange = (selectedItems) => {
     setGenre(selectedItems);
   };
@@ -40,7 +41,7 @@ const Filter = ({ genre,setGenre }) => {
     <Select
     isMulti
       name="genres"
-      value={genre}
+      //value={genre}
       closeMenuOnSelect={false}
       options={options}
       getOptionLabel={(option) => option.name}

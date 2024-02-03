@@ -94,8 +94,8 @@ export const userApiSlice=apiSlice.injectEndpoints({
       }),
 
       getRating: builder.query({
-        query: () => ({
-          url: `${USERS_BACKEND_URL}/rating`,
+        query: (contentId) => ({
+          url: `${USERS_BACKEND_URL}/rating/${contentId}`,
           method: 'GET',
 
         }),

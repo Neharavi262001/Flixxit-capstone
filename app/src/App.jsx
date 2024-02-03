@@ -65,7 +65,7 @@ const fetchGenresData=async()=>{
     return genres.map((genre)=>(allGenres[genre.id]=genre))
   })
 
-  console.log(allGenres)
+  console.log("all genres : ",allGenres)
   dispatch(fetchGenres(allGenres))
 
 }

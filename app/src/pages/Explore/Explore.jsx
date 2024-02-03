@@ -10,6 +10,7 @@ import ResultCard from '../Search/ResultCard/ResultCard'
 import { useSelector } from 'react-redux'
 import Select from "react-select";
 import Card from '../../components/Card/Card'
+import GenresFilter from '../../components/Filter/GenresFilter/GenresFilter'
 
 
 let filters={}
@@ -46,9 +47,7 @@ const Explore = () => {
     const {url}=useSelector((state)=>state.content)
     const { watchlist } = useSelector((state) => state.auth);
 
-    const { data: genresData, loading: genresLoading } = fetchGenres(`/genre/${mediaType}/list`);
 
-  console.log("Genres Data:", genre);
 
 
 
@@ -128,6 +127,8 @@ const Explore = () => {
                             className="react-select-container sortbyDD"
                             classNamePrefix="react-select"
                         />
+
+                       <GenresFilter/>
                       
                     </div>
                 </div>

@@ -16,7 +16,7 @@ const Watchlist = () => {
     const {data:getWatchlist,error, isLoading}=useGetWatchlistQuery()
     const [removeFromWatchlist]=useRemoveFromWatchlistMutation()
     const [clearWatchlist]=useClearWatchlistMutation()
-    console.log(getWatchlist)
+
 
     const handleRemoveFromWatchlist =async(contentId)=>{
       try {
