@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import './banner.css'
-import {FaPlay,FaPlus} from 'react-icons/fa'
+import {FaInfo, FaInfoCircle, FaPlay,FaPlus} from 'react-icons/fa'
 import useFetch from '../../hooks/useFetch'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 const Banner = () => {
      const [background,setBackground]=useState('')
      const [title,setTitle]=useState('')
      const [description,setDescription]=useState('')
+     const [id,setId]=useState('')
+     const [mediaType,setmediaType]=useState('')
+     const navigate=useNavigate()
 
      const {url}=useSelector((state)=>state.content)
 
@@ -32,11 +36,21 @@ const Banner = () => {
   
           const backgroundImage = url?.backdrop + bannerMovie?.backdrop_path;
           setBackground(backgroundImage);
+
+          const movieId=bannerMovie?.id
+          setId(movieId)
+
+          const movieCategory=bannerMovie?.media_type
+          setmediaType(movieCategory)
         }
       };
   
       fetchData();
     }, [content, url]);
+
+    const handleNavigate=()=>{
+      navigate(`/${mediaType}/${id}`)
+    }
     
    
 
@@ -57,7 +71,7 @@ const Banner = () => {
         </span>
         <span className="banner-btns">
             <button className='banner-btn'><FaPlay/><span>Play</span></button>
-            <button className="banner-btn"><FaPlus/><span> My Wishlist</span></button>
+            <button className="banner-btn" onClick={handleNavigate}><FaInfoCircle/><span> More info</span></button>
         </span>
        
       </div>

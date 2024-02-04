@@ -4,7 +4,7 @@ const asyncHandler=require('express-async-handler')
 const addToWatchlist=asyncHandler(async(req,res)=>{
  
    try {
-    const {contentId,contentTitle,contentPoster}=req.body
+    const {contentId,contentTitle,contentPoster,contentType,contentRating}=req.body
     const isAdded=await Watchlist.findOne({
         user:req.user.id,
         contentId
@@ -20,6 +20,8 @@ const addToWatchlist=asyncHandler(async(req,res)=>{
         contentId,
         contentPoster,
         contentTitle,
+        contentType,
+        contentRating,
         user:req.user.id,
         
     })
@@ -37,24 +39,16 @@ const addToWatchlist=asyncHandler(async(req,res)=>{
 
 const removeFromWatchlist = asyncHandler(async (req, res) => {
     try {
-     // const { watchlistItemId } = req.params;
+     
      const { contentId } = req.params;
-  
-      // if (!mongoose.Types.ObjectId.isValid(contentId)) {
-      //   return res.status(400).json({ error: "Invalid watchlistItemId" });
-      // }
-  
       const inWatchlist = await Watchlist.findOneAndDelete({
         user: req.user.id,
         contentId
-        // _id: watchlistItemId
       });
   
       if (!inWatchlist) {
         return res.status(404).json({ error: "Not found" });
       }
-  
-     
   
       res.status(200).json({ message: "Removed from watchlist", removedItem: inWatchlist });
     } catch (error) {

@@ -18,6 +18,14 @@ const watchlistSchema = new Schema({
       type: String,
       required: true,
     },
+    contentType:{
+      type: String,
+      required: true,
+    },
+    contentRating:{
+      type: Number,
+      required: true,
+    }
   }, {
     timestamps: true,
   });

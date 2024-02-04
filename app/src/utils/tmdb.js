@@ -8,7 +8,7 @@ const headers ={
     Authorization :"bearer " + TMDB_TOKEN
 }
 
-export const fetchGenres = async (mediaType) => {
+export const fetchGenres = async ({mediaType}) => {
   try {
     const response = await axios.get(
       `${TMDB_BASE_URL}/genre/${mediaType}/list`,

@@ -4,10 +4,10 @@ import './details.css'
 import useFetch from '../../hooks/useFetch'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import {FaPlay,FaPlus,FaCheck} from 'react-icons/fa'
+import {FaPlay,FaPlus,FaCheck, FaStar, FaSave, FaRegBookmark, FaBookmark} from 'react-icons/fa'
 import dayjs from 'dayjs'
 import Genres from '../../components/Genres/Genres'
-import { useAddToWatchlistMutation,useGetRatingQuery,useGetWatchlistQuery } from '../../redux/user/userApiSlice'
+import { useAddToWatchlistMutation,useRemoveFromWatchlistMutation,useGetRatingQuery,useGetWatchlistQuery } from '../../redux/user/userApiSlice'
 import Rating from '../../components/Rating/Rating'
 
 const Details = () => {
@@ -20,6 +20,7 @@ const Details = () => {
     const navigate=useNavigate()
    const {userInfo}=useSelector((state)=>state.auth)
    const [addToWatchlist] = useAddToWatchlistMutation();
+   const [removeFromWatchlist]=useRemoveFromWatchlistMutation()
    const { data: getWatchlist,error: watchlistError, isLoading: watchlistIsLoading } = useGetWatchlistQuery();
    const {data:getRating,error: ratingError, isLoading: ratingIsLoading }= useGetRatingQuery(id)
 
@@ -63,6 +64,8 @@ const Details = () => {
         contentId: String(id),
         contentTitle: content?.title || content?.name || content?.original_name,
         contentPoster:  url.poster + content.poster_path,
+        contentType:mediaType,
+        contentRating:content?.vote_average.toFixed(1)
       };
 
       const response = await addToWatchlist(newItem).unwrap();
@@ -74,6 +77,18 @@ const Details = () => {
     }
   };
 
+  const handleRemoveFromWatchlist=async()=>{
+    try {
+      const formatcontentId=String(id)
+        await removeFromWatchlist( formatcontentId ).unwrap()
+
+
+       
+    } catch (error) {
+       console.error('Error removing from watchlist:', error);
+    }
+  }
+
  
   
     
@@ -84,34 +99,39 @@ const Details = () => {
       </div>
       <div className="banner-info">
       
-      <span className="banner-title">
-         <h1>{content?.title || content?.name || content?.original_name}</h1> 
-      </span>
-      <span className="banner-description">
-        <h3>Overview</h3>
-        {content?.overview}
-         
-      </span>
-      <span>
-        {`${dayjs(content?.release_date).format('YYYY')}`}
-      </span>
-      <span>
-       IMDb {content?.vote_average.toFixed(1)}
-      </span>
-      <Genres data={genresData}/>
-      <span className="banner-btns">
-          <button className='banner-btn'><FaPlay/><span>Play</span></button>
+          <span className="banner-title">
+            <h1>{content?.title || content?.name || content?.original_name}</h1> 
+          </span>
+          <div className="other-info">
+              <span>
+                {`${dayjs(content?.release_date).format('YYYY')}`}
+              </span>
+              <span className='imdb-rating'>
+              IMDb : <FaStar/>   {content?.vote_average.toFixed(1)}
+              </span>
+          </div>
+          <span className='genres'>
+            <Genres data={genresData}/>
+          </span>
           
-              {inWatchList ? (
-           <button className="banner-btn"><FaCheck/><span> Added </span></button>
-          ) : (
-            <button className="banner-btn" onClick={handleAddToWatchlist}><FaPlus/><span>  Watchlist</span></button>
-          )}
-
+          <span className="banner-description">
+            <p> {content?.overview}</p>
+          </span>
+          
          
-      </span>
-      
-      <Rating rating={getRating} contentId={id}/>
+          <span className="banner-btns">
+              <button title='play' className='details-btns'><FaPlay/><span></span></button>
+              
+                  {inWatchList ? (
+              <button title='Unsave' className="details-btns" onClick={handleRemoveFromWatchlist}><FaBookmark/></button>
+              ) : (
+                <button title='save' className="details-btns" onClick={handleAddToWatchlist}><FaRegBookmark/></button>
+              )}
+
+              <Rating rating={getRating} contentId={id}/>
+          </span>
+          
+         
 
      
     </div>

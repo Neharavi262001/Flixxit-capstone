@@ -12,7 +12,6 @@
   
   .item-info {
     position: absolute;
-    margin:0px 5px;
     top: 0;
     left: 0;
     width: 100%;
@@ -30,12 +29,15 @@
   .list-item:hover{
     width: 240px;
     transform: translateX(-5px);
+   
 
   }
   
   .list-item:hover .item-info {
-    display: flex; /* Display when parent .list-item is hovered */
-    opacity: 1; /* Fade in */
+    display: flex; 
+    align-items: center;
+    opacity: 1; 
+    background: linear-gradient(to top, rgba(0, 0, 0,1), rgba(0, 0, 0,0));
   }
   
   .list-image {
@@ -45,12 +47,10 @@
     background-size: contain;
   }
   
-  
-
-  .icons{
-    display: flex;
-    justify-content: space-around;
-    gap: 10px;
+  .imdb{
+    font-size: 12px;
   }
+
+  
 
   

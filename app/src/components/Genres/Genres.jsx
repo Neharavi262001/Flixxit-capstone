@@ -5,7 +5,7 @@ const Genres = ({ data }) => {
   const { genres } = useSelector((state) => state.content);
 
   return (
-    <div>
+    <div className="genres-container">
       {data?.map((genre) => {
         const genreName = genres[genre]?.name;
         if (genreName) {
@@ -15,7 +15,7 @@ const Genres = ({ data }) => {
             </span>
           );
         }
-        return null; // Skip rendering if genre name is not available
+        return null; 
       })}
     </div>
   );

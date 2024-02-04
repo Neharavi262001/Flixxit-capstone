@@ -5,40 +5,54 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const GenresFilter = () => {
     const dispatch = useDispatch();
-  const [options, setOptions] = useState([]);
-
-  const fetchGenresData = async () => {
-    try {
-      const categories = ['tv', 'movie'];
-      let allGenres = {};
-
-      const promises = categories.map(async (category) => {
-        const response = await fetchContent(`/genre/${category}/list`);
-        return response.genres;
-      });
-
-      const genresArrays = await Promise.all(promises);
-      genresArrays.forEach((genres) => {
-        allGenres = Object.assign(allGenres, genres.reduce((acc, genre) => ({ ...acc, [genre.id]: genre }), {}));
-      });
-
-      dispatch(fetchGenres(allGenres));
-      setOptions(Object.values(allGenres));
-    } catch (error) {
-      console.error('Error fetching genres:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchGenresData();
-  }, [dispatch]);
-      
-      const onChange = (selectedItems) => {
-        setGenre(selectedItems);
-      };
+    const { genres } = useSelector((state) => state.content);
+    const [selectedGenre, setSelectedGenre] = useState(null);
+  
+    const fetchGenresData = async () => {
+      try {
+        const categories = ['tv', 'movie'];
+        let allGenres = {};
+  
+        const promises = categories.map(async (category) => {
+          const response = await fetchContent(`/genre/${category}/list`);
+          return response.genres;
+        });
+  
+        const genresArrays = await Promise.all(promises);
+        genresArrays.forEach((genres) => {
+          allGenres = Object.assign(allGenres, genres.reduce((acc, genre) => ({ ...acc, [genre.id]: genre }), {}));
+        });
+  
+        dispatch(fetchGenres(allGenres));
+      } catch (error) {
+        console.error('Error fetching genres:', error);
+      }
+    };
+  
+    useEffect(() => {
+      fetchGenresData();
+    }, [dispatch,genres]);
+  
+    const handleGenreChange = (selectedOption) => {
+      setSelectedGenre(selectedOption);
+      // Dispatch an action to filter movies based on the selected genre if needed
+      // You can use the selectedOption value to filter your movie list
+    };
+  
+    const options = Object.values(genres).map((genre) => ({
+      value: genre.id,
+      label: genre.name,
+    }));
   return (
     <div>
-        genres
+       <Select
+        value={selectedGenre}
+        onChange={handleGenreChange}
+        options={options}
+        isClearable
+        placeholder="Select a genre..."
+      />
+    
       
     </div>
   )

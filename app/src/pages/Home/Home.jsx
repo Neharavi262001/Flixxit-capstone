@@ -69,7 +69,7 @@ const Home = () => {
       <Navbar/>
       </header>
       <main>
-       <Banner/>
+       <Banner />
        <SliderContainer/>
       </main>
     </div>

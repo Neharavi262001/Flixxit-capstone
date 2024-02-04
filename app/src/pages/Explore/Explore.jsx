@@ -146,13 +146,13 @@ const Explore = () => {
                               <div className="result-container">
                               {data?.results?.map((item, index) => {
                                     if (item.media_type === "person") return;
-                                    const posterUrl=item.poster_path ? url.poster + item.poster_path : url.backdrop + item.backrop_path
+                                    const posterUrl=item?.poster_path ? url.poster + item?.poster_path : url.backdrop + item?.backrop_path
                                     return (
                                         <Card
                                             key={index}
                                             data={item}
                                             mediaType={mediaType}
-                                            
+                                            imdbRating={item?.vote_average.toFixed(1)}
                                             title={item.title || item.name} 
                                             imageUrl={posterUrl} 
                                             handleNavigate={()=>navigate(`/${item?.media_type || mediaType}/${item.id}`)}

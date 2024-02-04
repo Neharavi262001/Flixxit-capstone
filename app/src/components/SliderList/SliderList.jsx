@@ -14,23 +14,16 @@ export default React.memo(
         const [moved,setMoved]=useState(false)
         const listRef = useRef();
         const navigate=useNavigate()
-
         const handleClick = (action) => {
             setMoved(true)
             let distance = 250;
-            //let distance=listRef.current.getBoundingClientRect().x-10
             if (action === 'left' && slideNumber>0) {
-              setSlideNumber(slideNumber-1)
-              //listRef.current.style.transform = `translateX(${250 + distance}px)`;
+              setSlideNumber((prevSlideNumber) => prevSlideNumber - 2);
             }
-        
-            if (action === 'right' && slideNumber<4) {
-              //listRef.current.style.transform = `translateX(${-250 + distance}px)`;
-              setSlideNumber(slideNumber+1)
-             
+            if (action === 'right' && slideNumber< 9 ){
+              setSlideNumber((prevSlideNumber) => prevSlideNumber + 2);
             }
             distance *= slideNumber;
-
             listRef.current.style.transform = `translateX(${-distance}px)`;
           }
 
@@ -41,35 +34,38 @@ export default React.memo(
         return (
             <div className='movie-list'>
             <span className="list-title">{title}</span>
+
             <div className="list-wrapper">
-              <FaChevronLeft style={{display: !moved && "none" }} className='slider-arrow left-arrow' onClick={()=>handleClick("left")}/>
+              <FaChevronLeft 
+                style={{display: !moved && "none" }} 
+                className='slider-arrow left-arrow' 
+                onClick={()=>handleClick("left")}
+              />
+
               <div className="list-container" ref={listRef}>
-              {content?.results?.slice(0,10).map((item) => {
-                const posterUrl=item.poster_path ? url.poster + item.poster_path : url.backdrop + item.backrop_path
+              {content?.results?.slice(0,18).map((item) => {
+                const posterUrl=item?.poster_path ? url.poster + item?.poster_path : url.backdrop + item?.backrop_path
                 return (
                   <>
                  
                    <Card 
-                      key={item.id} 
-                      id={item.id}
-                      title={item.title || item.name} 
+                      key={item?.id} 
+                      id={item?.id}
+                      title={item?.title || item.name} 
                       imageUrl={posterUrl} 
                       handleNavigate={()=>navigate(`/${item.media_type || category}/${item.id}`)}
-                      itemGenre={item.genre_ids}
-                      />
-
-                     
+                      imdbRating={item?.vote_average.toFixed(1)}
+                      itemGenre={item?.genre_ids}
+                    /> 
                   </>
 
-                )
-
-              }
-              
+                )}
             )}
-                
-      
               </div>
-              <FaChevronRight className='slider-arrow right-arrow' onClick={()=>handleClick("right")}/>
+              <FaChevronRight 
+                className='slider-arrow right-arrow' 
+                onClick={()=>handleClick("right")}
+              />
             </div>
           </div>
         )
