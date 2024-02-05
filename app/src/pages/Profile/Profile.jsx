@@ -6,6 +6,7 @@ import { setCredentials } from '../../redux/auth/authSlice'
 import { Link, useNavigate } from 'react-router-dom'
 import profileImage from '../../images/user_profile_image.png'
 import {useGetUserSubscriptionQuery}from '../../redux/user/userApiSlice'
+import WatchHistory from '../../components/WatchHistory/WatchHistory'
 
 const Profile = () => {
   const navigate=useNavigate()
@@ -14,11 +15,11 @@ const Profile = () => {
   console.log(getUserSubscription)
   return (
     <div className='user-profile'>
-      
-    <div className="profile-card">
-    <div className="profile-title">
+       <div className="profile-title">
         <h2><FaUserAlt/>  User Profile</h2>
     </div> 
+    <div className="profile-card">
+   
     <div className="user-info">
       
       <div className="profile-image">
@@ -37,18 +38,21 @@ const Profile = () => {
         {isLoading && <p>Loading subscription details...</p>}
           {isError && <p>Error loading subscription details.</p>}
           {getUserSubscription && (
-            <>
-            <p>Plan: {getUserSubscription[0].planName}</p>
-              <p>Amount:₹ {getUserSubscription[0]?.amount}/{getUserSubscription[0].plan}</p>
-              <p>{getUserSubscription[0]?.status}</p>
-              <p>{(getUserSubscription[0]?.current_period_end)}</p>
-              {/* Add more subscription details as needed */}
-            </>
+             <div className="subscription-detail">
+             <p><strong>Plan:</strong> {getUserSubscription[0].planName}</p>
+             <p className="amount"><strong>Amount:</strong> ₹ {getUserSubscription[0]?.amount} / {getUserSubscription[0].plan}</p>
+             <p className="status"><strong>Status:</strong> {getUserSubscription[0]?.status}</p>
+             <p className="date"><strong>Next Billing Date:</strong> {getUserSubscription[0]?.current_period_end}</p>
+             {/* Add more subscription details as needed */}
+         </div>
           )}
       </div>
     </div>
       <div className="content-consumed">
         <h2>Continue watching</h2>
+        <button>Clear watch history</button>
+        <WatchHistory/>
+        
       </div>
      
      

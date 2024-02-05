@@ -118,7 +118,7 @@ const Navbar = () => {
                 <FaCaretDown className='profile-dropdown'/>
                 <div className="options">
                     <span className='profile-dropdown dropdown'><Link to='/profile'>Settings</Link>  </span>
-                    <span className='profile-dropdown dropdown'>About us</span>
+                    <span className='profile-dropdown dropdown' onClick={()=>{navigate('/about')}}>About us</span>
                     <span className='profile-dropdown dropdown' onClick={logoutHandler}> <FaSignOutAlt /> Logout </span>
                 </div>
             </div>

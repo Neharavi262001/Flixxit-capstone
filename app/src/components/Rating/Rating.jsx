@@ -38,7 +38,7 @@ const Rating = ({rating,contentId}) => {
   return (
     <div className='rating-container'>
         <div className="rating-box">
-        <button className={`details-btns${liked ? 'disabled' : ''}`} onClick={handleLike}>
+        <button className={`details-btns ${liked ? 'disabled' : ''}`} onClick={handleLike}>
           {liked ? <FaThumbsUp /> : <FaRegThumbsUp />}
         </button>
         <span>{rating?.likes}</span>
