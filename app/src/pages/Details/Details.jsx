@@ -120,7 +120,7 @@ const Details = () => {
           
          
           <span className="banner-btns">
-              <button title='play' className='details-btns'><FaPlay/><span></span></button>
+              <button title='play' className='details-btns' onClick={()=>navigate('/player')}><FaPlay/></button>
               
                   {inWatchList ? (
               <button title='Unsave' className="details-btns" onClick={handleRemoveFromWatchlist}><FaBookmark/></button>

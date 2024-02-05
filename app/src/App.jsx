@@ -22,6 +22,7 @@ import Explore from './pages/Explore/Explore';
 import Watchlist from './pages/Watchlist/Watchlist';
 import Subscription from './pages/Subscription/Subscription';
 import Invoice from './pages/Subscription/Invoice/Invoice';
+import Player from './pages/Player/Player';
 
 
 const App = () => {
@@ -100,13 +101,11 @@ useEffect(() => {
           <Route path="/watchlist/*" element={<Watchlist />} />
           <Route path="/:mediaType/:id/*" element={<Details />} />
           <Route path='/search/:query/*'element={<Search/>}/>
+          <Route path='/profile'element={<Profile/>}/> 
+          <Route path='/updateProfile'element={<ProfileForm/>}/>
           {/* Add other routes as needed */}
         </Route>
-
-         
-            <Route path='/profile'element={<Profile/>}/> 
-            <Route path='/updateProfile'element={<ProfileForm/>}/>
-           
+            <Route path='/player' element={<Player/>}/>
             <Route path='/invoice' element={<Invoice/>}/>
 
           </Route>

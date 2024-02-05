@@ -3,25 +3,54 @@ import { useSelector } from 'react-redux'
 import './profile.css'
 import {FaUserAlt} from 'react-icons/fa'
 import { setCredentials } from '../../redux/auth/authSlice'
-import { Link } from 'react-router-dom'
-
+import { Link, useNavigate } from 'react-router-dom'
+import profileImage from '../../images/user_profile_image.png'
+import {useGetUserSubscriptionQuery}from '../../redux/user/userApiSlice'
 
 const Profile = () => {
-    const {userInfo}=useSelector((state)=>state.auth)
+  const navigate=useNavigate()
+  const {userInfo}=useSelector((state)=>state.auth)
+  const {data:getUserSubscription,isLoading, isError}=useGetUserSubscriptionQuery()
+  console.log(getUserSubscription)
   return (
     <div className='user-profile'>
-      <div className="profile-title">
-        <h2>User Profile</h2>
+      
+    <div className="profile-card">
+    <div className="profile-title">
+        <h2><FaUserAlt/>  User Profile</h2>
     </div> 
-    <div className="profile-image">
-        <FaUserAlt/>
+    <div className="user-info">
+      
+      <div className="profile-image">
+         <img src={profileImage || 'https://wallpapers.com/images/high/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.webp'} alt='profile-image'/> 
+      </div>
+  
+        <h2>{userInfo.name}</h2>
+        <span>{userInfo.email}</span>
+        <button onClick={()=>navigate('/updateProfile')}>
+          Update profile
+          </button>
+        </div>
+        
+      <div className="user-subscriptions">
+        <h3>Subscription details</h3>
+        {isLoading && <p>Loading subscription details...</p>}
+          {isError && <p>Error loading subscription details.</p>}
+          {getUserSubscription && (
+            <>
+            <p>Plan: {getUserSubscription[0].planName}</p>
+              <p>Amount:₹ {getUserSubscription[0]?.amount}/{getUserSubscription[0].plan}</p>
+              <p>{getUserSubscription[0]?.status}</p>
+              <p>{(getUserSubscription[0]?.current_period_end)}</p>
+              {/* Add more subscription details as needed */}
+            </>
+          )}
+      </div>
     </div>
-
-      <span>{userInfo.name}</span>
-      <span>{userInfo.email}</span>
-      <button>
-         <Link to ='/updateProfile'>Update profile</Link>
-        </button>
+      <div className="content-consumed">
+        <h2>Continue watching</h2>
+      </div>
+     
      
     </div>
   )

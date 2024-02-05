@@ -57,6 +57,15 @@ export const userApiSlice=apiSlice.injectEndpoints({
         }),
 
 
+        getUserSubscription: builder.query({
+          query: () => ({
+            url: `${USERS_BACKEND_URL}/subscriptionDetails`,
+            method: 'GET',
+            
+          })
+      }),
+
+
         getWatchlist: builder.query({
             query: () => ({
               url: `${USERS_BACKEND_URL}/watchList`,
@@ -141,6 +150,7 @@ export const {useLoginMutation,
             useRemoveFromWatchlistMutation,
             useGetSubscriptionPlansQuery,
             useCreateSessionMutation,
+            useGetUserSubscriptionQuery,
             useGetRatingQuery,
             useLikeMutation,
             useDislikeMutation

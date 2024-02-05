@@ -70,7 +70,7 @@ const Banner = () => {
            
         </span>
         <span className="banner-btns">
-            <button className='banner-btn'><FaPlay/><span>Play</span></button>
+            <button className='banner-btn' onClick={()=>navigate('/player')}><FaPlay/><span>Play</span></button>
             <button className="banner-btn" onClick={handleNavigate}><FaInfoCircle/><span> More info</span></button>
         </span>
        

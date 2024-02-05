@@ -92,16 +92,27 @@ const viewUserSubscriptionDetails = asyncHandler(async (req, res) => {
       customer: user.stripeCustomerId,
     });
 
+    function formatDate(timestamp) {
+      const date = new Date(timestamp * 1000); // Convert seconds to milliseconds
+      const day = date.getDate().toString().padStart(2, '0');
+      const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
+      const year = date.getFullYear();
+      return `${day} / ${month} / ${year}`;
+    }
+
    
-    const subscriptionDetails = subscriptions.data.map((subscription) => ({
-      id: subscription.id,
-      status: subscription.status,
-      current_period_end: subscription.current_period_end,
-      price: subscription.items.data[0].price.id,
-      plan: subscription.items.data[0].price.recurring.interval,
-      amount :subscription.payment_settings.payment_method_options.card.mandate_options.amount /100,
-      planName :subscription.payment_settings.payment_method_options.card.mandate_options.description,
-    }));
+    const subscriptionDetails = subscriptions.data.map((subscription) => {
+      const formattedEndDate = formatDate(subscription.current_period_end);
+      return {
+        id: subscription.id,
+        status: subscription.status,
+        current_period_end: formattedEndDate,
+        price: subscription.items.data[0].price.id,
+        plan: subscription.items.data[0].price.recurring.interval,
+        amount: subscription.payment_settings.payment_method_options.card.mandate_options.amount / 100,
+        planName: subscription.payment_settings.payment_method_options.card.mandate_options.description,
+      };
+    });
     
 
     res.json(subscriptionDetails);

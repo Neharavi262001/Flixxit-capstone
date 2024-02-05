@@ -48,10 +48,7 @@ const ProfileForm = () => {
   return (
     <div className='profile-form'>
      <h1>Update user details</h1>
-     <div className="nav-top">
-            <img src={ navLogo || "https://app.gemoo.com/share/image-annotation/604743199318691840?codeId=vzxlEYOROQBX9&origin=imageurlgenerator&card=604743196353318912"} alt="logo" width='150px' height='35px' />
-           
-        </div>
+     
         <div className="login-container">
             
             <div className="form">
