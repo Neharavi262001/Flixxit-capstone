@@ -5,14 +5,25 @@ import {FaUserAlt} from 'react-icons/fa'
 import { setCredentials } from '../../redux/auth/authSlice'
 import { Link, useNavigate } from 'react-router-dom'
 import profileImage from '../../images/user_profile_image.png'
-import {useGetUserSubscriptionQuery}from '../../redux/user/userApiSlice'
+import {useGetUserSubscriptionQuery,useClearWatchHistoryMutation}from '../../redux/user/userApiSlice'
 import WatchHistory from '../../components/WatchHistory/WatchHistory'
 
 const Profile = () => {
   const navigate=useNavigate()
   const {userInfo}=useSelector((state)=>state.auth)
   const {data:getUserSubscription,isLoading, isError}=useGetUserSubscriptionQuery()
+  const [clearWatchHistory]=useClearWatchHistoryMutation()
   console.log(getUserSubscription)
+
+
+  const handleClearWatchHistory=async()=>{
+    try {
+      await clearWatchHistory()
+    } catch (error) {
+      console.error('Error clearing watchlist:', error);
+    }
+  }
+
   return (
     <div className='user-profile'>
        <div className="profile-title">
@@ -50,7 +61,7 @@ const Profile = () => {
     </div>
       <div className="content-consumed">
         <h2>Continue watching</h2>
-        <button>Clear watch history</button>
+        <button onClick={handleClearWatchHistory}>Clear all</button>
         <WatchHistory/>
         
       </div>

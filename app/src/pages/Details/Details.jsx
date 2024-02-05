@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import './details.css'
 
 import useFetch from '../../hooks/useFetch'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import {FaPlay,FaPlus,FaCheck, FaStar, FaSave, FaRegBookmark, FaBookmark} from 'react-icons/fa'
 import dayjs from 'dayjs'
 import Genres from '../../components/Genres/Genres'
-import { useAddToWatchlistMutation,useRemoveFromWatchlistMutation,useGetRatingQuery,useGetWatchlistQuery } from '../../redux/user/userApiSlice'
+import { useAddToWatchlistMutation,useRemoveFromWatchlistMutation,useGetRatingQuery,useGetWatchlistQuery, useAddToWatchHistoryMutation } from '../../redux/user/userApiSlice'
 import Rating from '../../components/Rating/Rating'
 
 const Details = () => {
@@ -23,8 +23,10 @@ const Details = () => {
    const [removeFromWatchlist]=useRemoveFromWatchlistMutation()
    const { data: getWatchlist,error: watchlistError, isLoading: watchlistIsLoading } = useGetWatchlistQuery();
    const {data:getRating,error: ratingError, isLoading: ratingIsLoading }= useGetRatingQuery(id)
+   const [addToWatchHistory]=useAddToWatchHistoryMutation()
 
    const [inWatchList,setInWatchList]=useState(false)
+   const[inWatchHistory,setInWatchHistory]=useState(false)
   
 
   useEffect(() => {
@@ -44,10 +46,42 @@ const Details = () => {
   }, [getWatchlist,getRating, id]);
 
    
+  const handleAddToWathHistory = async () => {
+    try {
+      if (!userInfo) {
+        navigate('/login');
+        return;
+      }
+
+
+      if (inWatchHistory) {
+        console.log('Movie is already in the watchHistory');
+        return;
+      }
+
+      const newItem = {
+        user: userInfo.id,
+        contentId: String(id),
+        contentTitle: content?.title || content?.name || content?.original_name,
+        contentPoster:  url.poster + content.poster_path,
+        contentType:mediaType,
+        contentRating:content?.vote_average.toFixed(1)
+      };
+
+      const response = await addToWatchHistory(newItem).unwrap();
+      console.log(response);
+      setInWatchHistory(true);
+
+    } catch (error) {
+      console.error('Error adding to watchlist:', error);
+    }
+  };
 
 
   const handleAddToWatchlist = async () => {
+    
     try {
+     
       if (!userInfo) {
         navigate('/login');
         return;
@@ -120,7 +154,7 @@ const Details = () => {
           
          
           <span className="banner-btns">
-              <button title='play' className='details-btns' onClick={()=>navigate('/player')}><FaPlay/></button>
+              <button title='play' className='details-btns' onClick={handleAddToWathHistory}><Link to='/player'><FaPlay/></Link></button>
               
                   {inWatchList ? (
               <button title='Unsave' className="details-btns" onClick={handleRemoveFromWatchlist}><FaBookmark/></button>

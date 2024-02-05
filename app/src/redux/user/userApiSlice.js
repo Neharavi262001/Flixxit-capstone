@@ -37,9 +37,6 @@ export const userApiSlice=apiSlice.injectEndpoints({
         }),
 
 
-
-        
-
         getSubscriptionPlans: builder.query({
             query: () => ({
               url: `${USERS_BACKEND_URL}/subscribe`,
@@ -64,6 +61,33 @@ export const userApiSlice=apiSlice.injectEndpoints({
             
           })
       }),
+
+      getWatchHistory: builder.query({
+        query: () => ({
+          url: `${USERS_BACKEND_URL}/watchHistory`,
+          method: 'GET',
+
+        }),
+        providesTags:['WatchHistory']
+        
+      }),
+      addToWatchHistory: builder.mutation({
+        query: (newItem) => ({
+          url:`${USERS_BACKEND_URL}/watchHistory`,
+          method: 'POST',
+          body: newItem,
+        }),
+        invalidatesTags:['WatchHistory']
+      }),
+
+      clearWatchHistory: builder.mutation({
+        query: () => ({
+          url: `${USERS_BACKEND_URL}/watchHistory`,
+          method: 'DELETE',
+        }),
+        invalidatesTags:['WatchHistory']
+      }),
+
 
 
         getWatchlist: builder.query({
@@ -153,5 +177,9 @@ export const {useLoginMutation,
             useGetUserSubscriptionQuery,
             useGetRatingQuery,
             useLikeMutation,
-            useDislikeMutation
+            useDislikeMutation,
+            useAddToWatchHistoryMutation,
+            useGetWatchHistoryQuery,
+            useClearWatchHistoryMutation
+            
         }=userApiSlice

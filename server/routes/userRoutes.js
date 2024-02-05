@@ -12,6 +12,7 @@ const router=express.Router()
 const {protectedRoutes} =require('../middlewares/authenticationMiddleware')
 const { addToWatchlist, getWatchlist, removeFromWatchlist, clearWatchlist } = require('../controllers/watchlistController')
 const { like, getRating, dislike } = require('../controllers/ratingController')
+const { getWatchHistory, addToWatchHistory, clearWatchHistory } = require('../controllers/watchHistoryController')
 
 router.post('/register',registerUser)
 router.post('/login',loginUser)
@@ -30,6 +31,10 @@ router.get('/watchList',protectedRoutes,getWatchlist)
 router.post('/watchList',protectedRoutes,addToWatchlist)
 router.delete('/watchList/:contentId',protectedRoutes,removeFromWatchlist)
 router.delete('/watchList',protectedRoutes,clearWatchlist)
+
+router.get('/watchHistory',protectedRoutes,getWatchHistory)
+router.post('/watchHistory',protectedRoutes,addToWatchHistory)
+router.delete('/watchHistory',protectedRoutes,clearWatchHistory)
 
 router.post('/like/:contentId',protectedRoutes,like)
 router.post('/dislike/:contentId',protectedRoutes,dislike)
