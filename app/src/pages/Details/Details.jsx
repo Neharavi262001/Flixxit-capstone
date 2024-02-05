@@ -9,6 +9,7 @@ import dayjs from 'dayjs'
 import Genres from '../../components/Genres/Genres'
 import { useAddToWatchlistMutation,useRemoveFromWatchlistMutation,useGetRatingQuery,useGetWatchlistQuery, useAddToWatchHistoryMutation } from '../../redux/user/userApiSlice'
 import Rating from '../../components/Rating/Rating'
+import SliderList from '../../components/SliderList/SliderList'
 
 const Details = () => {
     const {mediaType,id}=useParams()
@@ -127,7 +128,8 @@ const Details = () => {
   
     
   return (
-    <div className='details'>
+    <>
+      <div className='details'>
       <div className="backdrop">
         <img src={url?.backdrop + content?.backdrop_path} alt="" className='backdrop-image' />
       </div>
@@ -165,12 +167,15 @@ const Details = () => {
               <Rating rating={getRating} contentId={id}/>
           </span>
           
-         
-
-     
     </div>
+   
+    </div>
+    <div className="recommendations-container">
       
+      <SliderList title='Recommended for you'  endpoint={`/${mediaType}/${id}/recommendations`}  category={mediaType}/>
     </div>
+    </>
+    
   )
 }
 
