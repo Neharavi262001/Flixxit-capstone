@@ -54,7 +54,7 @@ const Profile = () => {
              <p className="amount"><strong>Amount:</strong> ₹ {getUserSubscription[0]?.amount} / {getUserSubscription[0].plan}</p>
              <p className="status"><strong>Status:</strong> {getUserSubscription[0]?.status}</p>
              <p className="date"><strong>Next Billing Date:</strong> {getUserSubscription[0]?.current_period_end}</p>
-             {/* Add more subscription details as needed */}
+             
          </div>
           )}
       </div>

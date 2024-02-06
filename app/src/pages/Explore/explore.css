@@ -5,11 +5,16 @@
 
 .filters{
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-end;
     gap: 10px;
     align-items: center;
     margin: 10px;
+    color: black;
+   
 }
+
+
 
 .filters button{
     background-color: #e50914;

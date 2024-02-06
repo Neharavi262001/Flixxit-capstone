@@ -156,7 +156,7 @@ const Details = () => {
                         {`${dayjs(content?.release_date).format('YYYY')}`}
                     </span>
                     <span className='imdb-rating'>
-                        IMDb : <FaStar />   {content?.vote_average.toFixed(1)}
+                        <FaStar />   {content?.vote_average.toFixed(1)}
                     </span>
                 </div>
                 <span className='genres'>

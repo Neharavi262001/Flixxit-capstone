@@ -66,7 +66,7 @@ const Banner = () => {
     ) : (
       // Actual content
       <>
-        <img className="banner-image" width="100%" src={background} alt="" />
+        <img className="banner-image" width="100vw" src={background} alt="" />
 
         <div className="banner-info">
           <span className="banner-title">

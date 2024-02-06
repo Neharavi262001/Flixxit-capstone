@@ -1,4 +1,5 @@
 .banner{
+    max-width: 100vw;
     height: 95vh;
     position: relative;
     object-fit: contain;
@@ -15,19 +16,21 @@
 }
 
 .banner-info{
-    width: 40%;
+    width: 90%; /* Adjust width for smaller screens */
     position: absolute;
-    left: 45px;
-    bottom: 100px;
+    left: 40%; /* Center horizontally */
+    bottom: 5%; /* Move closer to the bottom */
+    transform: translateX(-50%); /* Center horizontally */
     color: white;
     display: flex;
     flex-direction: column;
-    
+    font-size: 1rem;
+   
 }
 
 .banner-title{
    
-    font-size: xx-large;
+    font-size:2.0rem;
     font-weight: bolder;
 }
 
@@ -85,3 +88,32 @@
       background-position: -200%;
     }
   }
+
+
+  @media only screen and (max-width: 768px) {
+    .banner-info {
+        width: 90%;
+        left: 50%;
+        bottom: 10%; /* Adjust position */
+        transform: translateX(-50%);
+    }
+
+    .banner-title {
+        font-size: 1rem;
+    }
+
+    .banner-description {
+        margin: 15px 0;
+    }
+
+    .banner-btns {
+        justify-content: space-around; /* Display buttons in a column */
+    }
+
+    .banner-btn {
+        margin: 5px 0;
+    }
+    
+    
+  
+}

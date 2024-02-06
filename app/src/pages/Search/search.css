@@ -12,3 +12,11 @@
     gap: 16px;
     padding: 16px;
 }
+
+@media screen and (max-width: 768px) {
+    .result-container {
+      grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); /* Adjust column widths for smaller screens */
+      gap: 20px; /* Decrease the gap between grid items */
+      padding: 10px; /* Decrease the padding */
+    }
+  }

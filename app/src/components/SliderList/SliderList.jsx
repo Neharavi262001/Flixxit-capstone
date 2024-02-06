@@ -43,7 +43,7 @@ export default React.memo(
               />
 
               <div className="list-container" ref={listRef}>
-              {content?.results?.slice(0,18).map((item) => {
+              {content?.results?.slice(0,27).map((item) => {
                 const posterUrl=item?.poster_path ? url.poster + item?.poster_path : url.backdrop + item?.backrop_path
                 return (
                   <>

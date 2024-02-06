@@ -42,3 +42,13 @@
     right:0;
     
 }
+
+
+@media only screen and (max-width: 768px) {
+    .movie-list{
+        width: 100vw;
+    }
+    .list-container{
+        width: max-content;
+    }
+}

@@ -109,51 +109,49 @@ const Explore = () => {
 
 
     return (
-        <div className="explore-page">
+      <div className="explore-page">
             
-                <div className="pageHeader">
-                    <div className="pageTitle">
-                        {mediaType === "tv"
-                            ? <h2>Explore TV Shows</h2>
-                            :  <h2>Explore Movies</h2>}
-                    </div>
-                    <div className="filters">
-                        
-                      
-      <div>
-       
-        <Select
-          isMulti
-          value={selectedGenres}
-          onChange={handleGenresChange}
-          options={genres.map(genre => ({ value: genre.id, label: genre.name }))}
-          isClearable
-          placeholder="Select Genres"
-        />
-      </div>
+        <div className="pageHeader">
+          <div className="pageTitle">
+            {mediaType === "tv"
+                ? <h2>Explore TV Shows</h2>
+                :  <h2>Explore Movies</h2>}
+            </div>
+          <div className="filters">         
+          <div>
+            <Select
+            className='filter'
+              isMulti
+              value={selectedGenres}
+              onChange={handleGenresChange}
+              options={genres.map(genre => ({ value: genre.id, label: genre.name }))}
+              isClearable
+              placeholder="Select Genres"
+            />
+          </div>
 
-      <div>
-       
-        <Select
-          value={selectedSort}
-          onChange={handleSortChange}
-          options={[
-            { value: "popularity.desc", label: "Trending" },
-            { value: "popularity.asc", label: "Not Trending" },
-            { value: "vote_average.desc", label: "Top Rated" },
-            { value: "vote_average.asc", label: "Lowest Rated" },
-            { value: "original_title.asc", label: "Title (A-Z)" },
-          ]}
-          isClearable
-          placeholder="Select Sort Option"
-        />
-      </div>
+          <div>
+            <Select
+             className='filter'
+              value={selectedSort}
+              onChange={handleSortChange}
+              options={[
+                { value: "popularity.desc", label: "Trending" },
+                { value: "popularity.asc", label: "Not Trending" },
+                { value: "vote_average.desc", label: "Top Rated" },
+                { value: "vote_average.asc", label: "Lowest Rated" },
+                { value: "original_title.asc", label: "Title (A-Z)" },
+              ]}
+              isClearable
+              placeholder="Select Sort Option"
+            />
+          </div>
 
-      <button onClick={handleFetchData}>Filter <FaFilter/></button>
+          <button onClick={handleFetchData}>Filter <FaFilter/></button>
   
                       
-                    </div>
-                </div>
+          </div>
+        </div>
                 {loading && <div>Loading...</div>}
                 {!loading && (
                     <>
