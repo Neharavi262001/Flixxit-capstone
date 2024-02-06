@@ -13,13 +13,13 @@ import SliderList from '../../components/SliderList/SliderList'
 
 const Details = () => {
     const {mediaType,id}=useParams()
-    const {content,loading}=useFetch(`/${mediaType}/${id}`)
+    const {content}=useFetch(`/${mediaType}/${id}`)
     const {url}=useSelector(state=>state.content)
     const genresData = content?.genre_ids || content?.genres?.map(g => g.id) || [];
 
-    const dispatch=useDispatch()
+    
     const navigate=useNavigate()
-   const {userInfo}=useSelector((state)=>state.auth)
+   const {userInfo,isLoading}=useSelector((state)=>state.auth)
    const [addToWatchlist] = useAddToWatchlistMutation();
    const [removeFromWatchlist]=useRemoveFromWatchlistMutation()
    const { data: getWatchlist,error: watchlistError, isLoading: watchlistIsLoading } = useGetWatchlistQuery();
@@ -28,6 +28,7 @@ const Details = () => {
 
    const [inWatchList,setInWatchList]=useState(false)
    const[inWatchHistory,setInWatchHistory]=useState(false)
+   
   
 
   useEffect(() => {
@@ -129,55 +130,60 @@ const Details = () => {
     
   return (
     <>
-      <div className='details'>
-      <div className="backdrop">
-        <img src={url?.backdrop + content?.backdrop_path} alt="" className='backdrop-image' />
-      </div>
-      <div className="banner-info">
-      
-          <span className="banner-title">
-            <h1>{content?.title || content?.name || content?.original_name}</h1> 
-          </span>
-          <div className="other-info">
-            <span>
-            {mediaType.toUpperCase()}
-            </span>
-              <span>
-                {`${dayjs(content?.release_date).format('YYYY')}`}
-              </span>
-              <span className='imdb-rating'>
-              IMDb : <FaStar/>   {content?.vote_average.toFixed(1)}
-              </span>
-          </div>
-          <span className='genres'>
-            <Genres data={genresData}/>
-          </span>
-          
-          <span className="banner-description">
-            <p> {content?.overview}</p>
-          </span>
-          
-         
-          <span className="banner-btns">
-              <button title='play' className='details-btns' onClick={handleAddToWathHistory}><Link to='/player'><FaPlay/></Link></button>
-              
-                  {inWatchList ? (
-              <button title='Unsave' className="details-btns" onClick={handleRemoveFromWatchlist}><FaBookmark/></button>
-              ) : (
-                <button title='save' className="details-btns" onClick={handleAddToWatchlist}><FaRegBookmark/></button>
-              )}
-
-              <Rating rating={getRating} contentId={id}/>
-          </span>
-          
-    </div>
+    <div className={`details ${isLoading ? 'loading' : ''}`}>
+    {isLoading ? (
+        
+        <div className="skeleton">
+           loading
+        </div>
+    ) : (
+        // Actual content
+        <>
+            <div className="backdrop">
+                <img src={url?.backdrop + content?.backdrop_path} alt="" className='backdrop-image' />
+            </div>
+            <div className="banner-info">
+                <span className="banner-title">
+                    <h1>{content?.title || content?.name || content?.original_name}</h1>
+                </span>
+                <div className="other-info">
+                    <span>
+                        {mediaType.toUpperCase()}
+                    </span>
+                    <span>
+                        {`${dayjs(content?.release_date).format('YYYY')}`}
+                    </span>
+                    <span className='imdb-rating'>
+                        IMDb : <FaStar />   {content?.vote_average.toFixed(1)}
+                    </span>
+                </div>
+                <span className='genres'>
+                    <Genres data={genresData} />
+                </span>
+                <span className="banner-description">
+                    <p> {content?.overview}</p>
+                </span>
+                <span className="banner-btns">
+                    <button title='play' className='details-btns' onClick={handleAddToWathHistory}><Link to='/player'><FaPlay /></Link></button>
+                    {inWatchList ? (
+                        <button title='Unsave' className="details-btns" onClick={handleRemoveFromWatchlist}><FaBookmark /></button>
+                    ) : (
+                        <button title='save' className="details-btns" onClick={handleAddToWatchlist}><FaRegBookmark /></button>
+                    )}
+                    <Rating rating={getRating} contentId={id} />
+                </span>
+            </div>
+            
+    
+        </>
+        
+    )}
    
+</div>
+<div className="recommendations-container">
+        <SliderList title='Recommended for you' endpoint={`/${mediaType}/${id}/recommendations`} category={mediaType} />
     </div>
-    <div className="recommendations-container">
-      
-      <SliderList title='Recommended for you'  endpoint={`/${mediaType}/${id}/recommendations`}  category={mediaType}/>
-    </div>
-    </>
+</>
     
   )
 }

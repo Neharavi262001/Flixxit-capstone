@@ -64,3 +64,24 @@
     background-color: white;
 }
 
+.banner.loading {
+    position: relative;
+  }
+  
+  .banner.loading .skeleton {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #333, #444, #333);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1s infinite linear;
+    border-radius: 10px;
+  }
+  
+  @keyframes skeleton-loading {
+    0% {
+      background-position: 200%;
+    }
+    100% {
+      background-position: -200%;
+    }
+  }

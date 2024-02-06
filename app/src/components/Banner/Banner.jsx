@@ -11,11 +11,13 @@ const Banner = () => {
      const [description,setDescription]=useState('')
      const [id,setId]=useState('')
      const [mediaType,setmediaType]=useState('')
+    const [loading,setLoading]=useState(true)
+
      const navigate=useNavigate()
 
      const {url}=useSelector((state)=>state.content)
 
-     const {content,loading}=useFetch('/trending/all/week')
+     const {content}=useFetch('/trending/all/week')
 
      const truncate=(string,number)=>{
       return string?.length>number ? string.substring(0,number-1) + '...' : string
@@ -42,6 +44,8 @@ const Banner = () => {
 
           const movieCategory=bannerMovie?.media_type
           setmediaType(movieCategory)
+
+          setLoading(false);
         }
       };
   
@@ -55,29 +59,34 @@ const Banner = () => {
    
 
   return (
-    <div className='banner'>
-        <img className='banner-image'
-        width='100%'
-        src={background} alt="" />
+    <div className={`banner ${loading ? 'loading' : ''}`}>
+    {loading ? (
+      // Loading skeleton
+      <div className="skeleton"></div>
+    ) : (
+      // Actual content
+      <>
+        <img className="banner-image" width="100%" src={background} alt="" />
 
-      <div className="banner-info">
-      
-        <span className="banner-title">
-           <h1>{title}</h1> 
-        </span>
-        <span className="banner-description">
-          {description}
-           
-        </span>
-        <span className="banner-btns">
-            <button className='banner-btn' onClick={()=>navigate('/player')}><FaPlay/><span>Play</span></button>
-            <button className="banner-btn" onClick={handleNavigate}><FaInfoCircle/><span> More info</span></button>
-        </span>
-       
-      </div>
-   
-
-    </div>
+        <div className="banner-info">
+          <span className="banner-title">
+            <h1>{title}</h1>
+          </span>
+          <span className="banner-description">{description}</span>
+          <span className="banner-btns">
+            <button className="banner-btn" onClick={() => navigate('/player')}>
+              <FaPlay />
+              <span>Play</span>
+            </button>
+            <button className="banner-btn" onClick={handleNavigate}>
+              <FaInfoCircle />
+              <span> More info</span>
+            </button>
+          </span>
+        </div>
+      </>
+    )}
+  </div>
   )
 }
 
