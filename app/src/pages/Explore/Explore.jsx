@@ -42,10 +42,9 @@ const Explore = () => {
             }
           };
         fetchGenresData();
-        
         fetchData();
         handleFetchData()
-      }, [mediaType]);
+      }, [mediaType,selectedGenres]);
 
 
 
@@ -70,29 +69,29 @@ const Explore = () => {
    
       
       const handleFetchData = async () => {
-       setLoading(true)
+        setLoading(true);
         try {
-         
-          const genreQuery = selectedGenres ? `&with_genres=${selectedGenres.map(g => g.value).join(',')}` : '';
-          console.log('Selected Genres:', selectedGenres);
-          console.log('Constructed Genre Query:', genreQuery);
+            let genreQuery = '';
+            if (selectedGenres) {
+                genreQuery = `&with_genres=${selectedGenres.map(g => g.value).join(',')}`;
+            }
+            console.log('Selected Genres:', selectedGenres);
+            console.log('Constructed Genre Query:', genreQuery);
     
-         
-          const endpoint = `/discover/${mediaType}?${genreQuery && `with_genres=${genreQuery}`}${selectedSort && `&sort_by=${selectedSort.value}`}`;
-          console.log('Constructed Endpoint:', endpoint);
+            const endpoint = `/discover/${mediaType}?${genreQuery}${selectedSort ? `&sort_by=${selectedSort.value}` : ''}`;
+            console.log('Constructed Endpoint:', endpoint);
     
-         
-          const filteredData = await fetchContent(endpoint);
-          setData(filteredData);
-          console.log('Fetched Data:', filteredData);
+            const filteredData = await fetchContent(endpoint);
+            setData(filteredData);
+            console.log('Fetched Data:', filteredData);
     
         } catch (error) {
-          console.error('Error fetching filtered data:', error);
+            console.error('Error fetching filtered data:', error);
+        } finally {
+            setLoading(false);
         }
-        finally{
-            setLoading(false)
-        }
-      };
+    };
+    
 
       const handleGenresChange = (selectedOptions) => {
         setSelectedGenres(selectedOptions);
