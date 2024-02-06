@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './details.css'
 
+
 import useFetch from '../../hooks/useFetch'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,13 +14,13 @@ import SliderList from '../../components/SliderList/SliderList'
 
 const Details = () => {
     const {mediaType,id}=useParams()
-    const {content}=useFetch(`/${mediaType}/${id}`)
+    const {content, isLoading: contentIsLoading}=useFetch(`/${mediaType}/${id}`)
     const {url}=useSelector(state=>state.content)
     const genresData = content?.genre_ids || content?.genres?.map(g => g.id) || [];
 
     
     const navigate=useNavigate()
-   const {userInfo,isLoading}=useSelector((state)=>state.auth)
+   const {userInfo}=useSelector((state)=>state.auth)
    const [addToWatchlist] = useAddToWatchlistMutation();
    const [removeFromWatchlist]=useRemoveFromWatchlistMutation()
    const { data: getWatchlist,error: watchlistError, isLoading: watchlistIsLoading } = useGetWatchlistQuery();
@@ -28,7 +29,7 @@ const Details = () => {
 
    const [inWatchList,setInWatchList]=useState(false)
    const[inWatchHistory,setInWatchHistory]=useState(false)
-   
+     const [isLoading, setIsLoading] = useState(true);
   
 
   useEffect(() => {
@@ -38,6 +39,7 @@ const Details = () => {
         setInWatchList(isInWatchlist);
         getRating
         console.log(getRating)
+       setIsLoading(false)
        
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -130,11 +132,11 @@ const Details = () => {
     
   return (
     <>
-    <div className={`details ${isLoading ? 'loading' : ''}`}>
-    {isLoading ? (
+    <div className={`details ${isLoading || contentIsLoading ? 'loading' : ''}`}>
+    {isLoading || contentIsLoading ? (
         
         <div className="skeleton">
-           loading
+       
         </div>
     ) : (
         // Actual content
@@ -189,3 +191,4 @@ const Details = () => {
 }
 
 export default Details
+
