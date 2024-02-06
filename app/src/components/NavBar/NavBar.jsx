@@ -89,6 +89,7 @@ const Navbar = () => {
                 <Link to='explore/tv'>TV shows</Link>
                 <Link to='/watchlist'>Watchlist</Link>
                
+               
                </div>
             </section>
             <section className="right-section">

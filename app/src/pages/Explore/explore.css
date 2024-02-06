@@ -5,7 +5,18 @@
 
 .filters{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+    gap: 10px;
     align-items: center;
     margin: 10px;
+}
+
+.filters button{
+    background-color: #e50914;
+    padding: 5px;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
 }

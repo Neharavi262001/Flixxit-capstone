@@ -1,108 +1,111 @@
 import React, { useEffect, useState } from 'react'
 import './explore.css'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import useFetch from '../../hooks/useFetch'
-import { fetchContent,fetchGenres } from '../../utils/tmdb'
+import { fetchContent ,fetchGenres} from '../../utils/tmdb'
 import { useNavigate, useParams } from 'react-router-dom'
-import Filter from '../../components/Filter/Filter'
-import Sort from '../../components/Sort/Sort'
-import ResultCard from '../Search/ResultCard/ResultCard'
 import { useSelector } from 'react-redux'
 import Select from "react-select";
 import Card from '../../components/Card/Card'
-import GenresFilter from '../../components/Filter/GenresFilter/GenresFilter'
+import { FaFilter } from 'react-icons/fa'
 
-
-let filters={}
-
-
-
-const sortbyData = [
-    { value: "popularity.desc", 
-        label: "Most popular"
-     },
-   
-    { 
-        value: "vote_average.desc", 
-        label: "Top rated" },
-   
-    {
-        value: "primary_release_date.desc",
-        label: "Latest",
-    },
-    { 
-        value: "original_title.asc", 
-        label: "Title (A-Z)" 
-    },
-];
 
 const Explore = () => {
     const navigate=useNavigate()
+    const { mediaType } = useParams();
+    const [selectedGenres, setSelectedGenres] = useState(null);
+    const [selectedSort, setSelectedSort] = useState(null);
     const [data, setData] = useState(null);
+    const [genres, setGenres] = useState([]);
     const [pageNum, setPageNum] = useState(1);
     const [loading, setLoading] = useState(false);
-    const [genre, setGenre] = useState([]);
-    const [sortby, setSortby] = useState(null);
-    const { mediaType } = useParams();
     const {url}=useSelector((state)=>state.content)
-    const { watchlist } = useSelector((state) => state.auth);
-
-
-
-
-
-    const fetchInitialData = () => {
-        setLoading(true);
-        fetchContent(`/discover/${mediaType}`, { ...filters, with_genres: filters.with_genres }).then((res) => {
-            setData(res);
-            setPageNum((prev) => prev + 1);
-            setLoading(false);
-        });
-    };
-
-    const fetchNextPageData = () => {
-        fetchContent(
-            `/discover/${mediaType}?page=${pageNum}`,
-            filters
-        ).then((res) => {
-            if (data?.results) {
-                setData({
-                    ...data,
-                    results: [...data?.results, ...res.results],
-                });
-            } else {
-                setData(res);
-            }
-            setPageNum((prev) => prev + 1);
-        });
-    };
-
-    useEffect(() => {
-        filters = {};
-        setData(null);
-        setPageNum(1);
-        setSortby(null);
-        setGenre(null);
-        fetchInitialData();
-    }, [mediaType]);
-
-    const onChange = (selectedItems, action) => {
-        if (action.name === "sortby") {
-            setSortby(selectedItems);
-            if (action.action !== "clear") {
-                filters.sort_by = selectedItems.value;
-            } else {
-                delete filters.sort_by;
-            }
-        }
-
-        
-
-        setPageNum(1);
-        fetchInitialData();
-    };
-
     
+    useEffect(() => {
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+              const response = await fetchContent(`/discover/${mediaType}`);
+              setData(response);
+            } catch (error) {
+              console.error('Error fetching trending data:', error);
+            }finally{
+                setLoading(false);
+            }
+          };
+           
+          const fetchGenresData = async () => {
+            try {
+              const genresResponse = await fetchGenres({mediaType}); 
+              setGenres(genresResponse);
+            } catch (error) {
+              console.error('Error fetching genres:', error);
+            }
+          };
+        fetchGenresData();
+        
+        fetchData();
+        handleFetchData()
+      }, [mediaType]);
+
+
+
+    const fetchNextPageData = async () => {
+        try {
+          const res = await fetchContent(`/discover/${mediaType}?page=${pageNum}`);
+          if (data?.results) {
+            setData({
+              ...data,
+              results: [...data?.results, ...res.results],
+            });
+          } else {
+            setData(res);
+          }
+          setPageNum((prev) => prev + 1);
+        } catch (error) {
+          console.error('Error fetching next page data:', error);
+        }
+      };
+
+   
+   
+      
+      const handleFetchData = async () => {
+       setLoading(true)
+        try {
+         
+          const genreQuery = selectedGenres ? `&with_genres=${selectedGenres.map(g => g.value).join(',')}` : '';
+          console.log('Selected Genres:', selectedGenres);
+          console.log('Constructed Genre Query:', genreQuery);
+    
+         
+          const endpoint = `/discover/${mediaType}?${genreQuery && `with_genres=${genreQuery}`}${selectedSort && `&sort_by=${selectedSort.value}`}`;
+          console.log('Constructed Endpoint:', endpoint);
+    
+         
+          const filteredData = await fetchContent(endpoint);
+          setData(filteredData);
+          console.log('Fetched Data:', filteredData);
+    
+        } catch (error) {
+          console.error('Error fetching filtered data:', error);
+        }
+        finally{
+            setLoading(false)
+        }
+      };
+
+      const handleGenresChange = (selectedOptions) => {
+        setSelectedGenres(selectedOptions);
+        handleFetchData()
+        
+      };
+    
+      const handleSortChange = (selectedOption) => {
+        setSelectedSort(selectedOption);
+        handleFetchData()
+      }
+
+     
 
 
 
@@ -112,27 +115,47 @@ const Explore = () => {
                 <div className="pageHeader">
                     <div className="pageTitle">
                         {mediaType === "tv"
-                            ? "Explore TV Shows"
-                            : "Explore Movies"}
+                            ? <h2>Explore TV Shows</h2>
+                            :  <h2>Explore Movies</h2>}
                     </div>
                     <div className="filters">
                         
-                        <Select
-                            name="sortby"
-                            value={sortby}
-                            options={sortbyData}
-                            onChange={onChange}
-                            isClearable={true}
-                            placeholder="Sort by"
-                            className="react-select-container sortbyDD"
-                            classNamePrefix="react-select"
-                        />
+                      
+      <div>
+       
+        <Select
+          isMulti
+          value={selectedGenres}
+          onChange={handleGenresChange}
+          options={genres.map(genre => ({ value: genre.id, label: genre.name }))}
+          isClearable
+          placeholder="Select Genres"
+        />
+      </div>
 
-                       <GenresFilter/>
+      <div>
+       
+        <Select
+          value={selectedSort}
+          onChange={handleSortChange}
+          options={[
+            { value: "popularity.desc", label: "Trending" },
+            { value: "popularity.asc", label: "Not Trending" },
+            { value: "vote_average.desc", label: "Top Rated" },
+            { value: "vote_average.asc", label: "Lowest Rated" },
+            { value: "original_title.asc", label: "Title (A-Z)" },
+          ]}
+          isClearable
+          placeholder="Select Sort Option"
+        />
+      </div>
+
+      <button onClick={handleFetchData}>Filter <FaFilter/></button>
+  
                       
                     </div>
                 </div>
-                
+                {loading && <div>Loading...</div>}
                 {!loading && (
                     <>
                         {data?.results?.length > 0 ? (

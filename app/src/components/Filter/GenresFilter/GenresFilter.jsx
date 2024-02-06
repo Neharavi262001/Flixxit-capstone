@@ -35,6 +35,7 @@ const GenresFilter = () => {
   
     const handleGenreChange = (selectedOption) => {
       setSelectedGenre(selectedOption);
+      onChange(selectedOption, { name: "genre" });
       // Dispatch an action to filter movies based on the selected genre if needed
       // You can use the selectedOption value to filter your movie list
     };
@@ -51,6 +52,8 @@ const GenresFilter = () => {
         options={options}
         isClearable
         placeholder="Select a genre..."
+        className="react-select-container genreDD"
+        classNamePrefix="react-select"
       />
     
       

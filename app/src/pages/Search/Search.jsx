@@ -4,7 +4,6 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { useNavigate, useParams } from 'react-router-dom'
 import './search.css'
 import { fetchContent } from '../../utils/tmdb'
-import ResultCard from './ResultCard/ResultCard'
 import { useSelector } from 'react-redux'
 import Card from '../../components/Card/Card'
 
@@ -15,35 +14,38 @@ const Search = () => {
   const [loading,setLoading]=useState(false)
   const {query}=useParams()
   const {url}=useSelector((state)=>state.content)
-  const { watchlist } = useSelector((state) => state.auth);
+ 
   const navigate=useNavigate()
 
 
-  const fetchSearchResult=()=>{
-    setLoading(true)
-    fetchContent(`/search/multi?query=${query}&page=${pageNum}`)
-    .then((response)=>{
-      
-      setData(response)
-      setPageNum((prev)=>prev+1)
-      setLoading(false)
-    })
-  }
-
-  const fetchNextPageData=()=>{
-    fetchContent(`/search/multi?query=${query}&page=${pageNum}`)
-    .then((res)=>{
-      if (data?.results){
+  const fetchSearchResult = async () => {
+    setLoading(true);
+    try {
+      const response = await fetchContent(`/search/multi?query=${query}&page=${pageNum}`);
+      setData(response);
+      setPageNum((prev) => prev + 1);
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const fetchNextPageData = async () => {
+    try {
+      const res = await fetchContent(`/search/multi?query=${query}&page=${pageNum}`);
+      if (data?.results) {
         setData({
           ...data,
-          results:[...data?.results,...res.results]
-        })
-      }else{
-        setData(res)
+          results: [...data?.results, ...res.results],
+        });
+      } else {
+        setData(res);
       }
-      setPageNum((prev)=>prev+1)
-    })
-  }
+      setPageNum((prev) => prev + 1);
+    } catch (error) {
+      console.error('Error fetching next page data:', error);
+    }
+  };
 
   useEffect(()=>{
     fetchSearchResult()
@@ -68,7 +70,7 @@ const Search = () => {
           <div className="page-title">
             {`Search results for "${query}"`}
           </div>
-          {/* Render your search results here */}
+          
           <div className="result-container">
             {data?.results.map((item) => {
               if (item.media_type === "person") return;
@@ -79,6 +81,7 @@ const Search = () => {
                 key={item.id} 
                 title={item.title || item.name} 
                 imageUrl={posterUrl} 
+                imdbRating={item?.vote_average.toFixed(1)}
                 handleNavigate={()=>navigate(`/${item.media_type || category}/${item.id}`)}
                 fromSearch={true}  />
               );

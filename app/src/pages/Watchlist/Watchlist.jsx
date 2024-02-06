@@ -3,9 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import './watchlist.css'
 import Card from '../../components/Card/Card';
 import { useNavigate, useParams } from 'react-router-dom';
-import ResultCard from '../Search/ResultCard/ResultCard';
 import {useGetWatchlistQuery,useRemoveFromWatchlistMutation,useClearWatchlistMutation} from '../../redux/user/userApiSlice'
-import { FaCross } from 'react-icons/fa';
+
 
 
 const Watchlist = () => {

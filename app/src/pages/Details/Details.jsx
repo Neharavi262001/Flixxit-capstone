@@ -139,6 +139,9 @@ const Details = () => {
             <h1>{content?.title || content?.name || content?.original_name}</h1> 
           </span>
           <div className="other-info">
+            <span>
+            {mediaType.toUpperCase()}
+            </span>
               <span>
                 {`${dayjs(content?.release_date).format('YYYY')}`}
               </span>
