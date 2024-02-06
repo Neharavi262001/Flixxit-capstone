@@ -47,7 +47,7 @@ const checkoutSession = asyncHandler(async (req, res) => {
     }
     const session = await stripe.checkout.sessions.create({
      
-      payment_method_types: ['card'], // Add other payment methods here
+      payment_method_types: ['card'],
       line_items: [
         {
           price: req.body.id, 
