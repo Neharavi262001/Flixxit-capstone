@@ -47,7 +47,7 @@ const checkoutSession = asyncHandler(async (req, res) => {
     }
     const session = await stripe.checkout.sessions.create({
      
-      payment_method_types: ['card'], 
+      payment_method_types: ['card'], // Add other payment methods here
       line_items: [
         {
           price: req.body.id, 
@@ -59,15 +59,15 @@ const checkoutSession = asyncHandler(async (req, res) => {
       success_url: 'http://localhost:3000', 
       cancel_url: 'http://localhost:3000/subscribe', 
       
-      customer:user.stripeCustomerId
+      customer: user.stripeCustomerId
       
     });
  
   
-    res.json({ sessionId: session.id, session,checkoutUrl: session.url });
+    res.json({ sessionId: session.id, session, checkoutUrl: session.url });
   } catch (error) {
     console.error('Error creating checkout session:', error);
-    res.status(500).json({ error: 'Internal Server Error',stripeError: error.message  });
+    res.status(500).json({ error: 'Internal Server Error', stripeError: error.message  });
   }
 });
 
