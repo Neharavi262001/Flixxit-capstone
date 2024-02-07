@@ -1,0 +1,45 @@
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20%;
+  }
+  .search-container h2{
+    color: white;
+    margin: 1rem;
+    font-size: 1rem;
+  }
+  .search-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    border-radius: 20px; /* Rounded corners */
+  }
+  
+  .search-input input {
+    background-color: white; /* White background */
+    color: black; /* Text color */
+    border: none;
+    outline: none;
+    padding: 8px;
+    width: 200px; /* Adjust width as needed */
+    border-radius: 20px; /* Rounded corners */
+    transition: box-shadow 0.3s ease; /* Smooth transition for box-shadow */
+  }
+  
+  .search-input input:hover {
+    box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.5); /* Red neon effect */
+  }
+  .search-icon {
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for icon transform and box-shadow */
+    font-size: 24px; /* Adjust the size of the icon */
+  }
+  
+  .search-icon:hover {
+    transform: scale(1.1); /* Scale up the icon on hover */
+    /* Red neon effect */
+  }
+  

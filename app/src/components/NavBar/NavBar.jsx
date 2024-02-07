@@ -12,42 +12,10 @@ import {clearCredentials} from '../../redux/auth/authSlice'
 const Navbar = () => {
 
     const [scrolling,setScrolling]=useState(false)
-    const [query,setQuery]=useState("")
-    const [isSearchVisible, setIsSearchVisible] = useState(false);
     const [showNavLinks, setShowNavLinks] = useState(false);
-
     const toggleNavLinks = () => {
       setShowNavLinks(!showNavLinks);
     };
-
-    
-    const toggleSearch = () => {
-        setIsSearchVisible(!isSearchVisible);
-      };
-
-      const handleSearch = (e) => {
-        if (e.key === 'Enter' && query.length > 0) {
-         navigate(`/search/${query}`);
-         setTimeout(() => {
-          setIsSearchVisible(false)
-      }, 1000);
-        }
-      };
-
-      const handleSearchIconClick = () => {
-        if (query.length > 0) {
-          navigate(`/search/${query}`);
-        }
-      };
-
-      const handleSearchIconClickAndToggle = () => {
-        handleSearchIconClick();  
-        toggleSearch();  
-      };
-
-    const {userInfo}=useSelector((state)=>state.auth)
-   
-
     const dispatch =useDispatch()
     const navigate=useNavigate()
     const [logout] =useLogoutMutation()
@@ -98,28 +66,11 @@ const Navbar = () => {
                 <Link to='/watchlist'>Watchlist</Link>
                </div>
             </section>
+
             <section className="right-section">
-                <div className={`search-container ${isSearchVisible ? 'search-visible' : ''}`}>
-                {isSearchVisible && (
-                    <div className="search-bar">
-                        <input 
-                            type="text" 
-                            placeholder="Search..."
-                            onChange={(e)=>setQuery(e.target.value)}
-                            onKeyUp={handleSearch}
-                         />
-                    </div>
-                )}
-            <div className="search-icon icons" onClick={handleSearchIconClickAndToggle}>
-            
-                <FaSearch />
-                
+            <div className="search-icon icons" onClick={()=>navigate('/search')}>
+                <FaSearch /> 
             </div>
-
-                </div>
-          
-           
-
             <div className="profile icons">
                 <FaUserCircle className='profile-icon'/> 
                 <FaCaretDown className='profile-dropdown'/>

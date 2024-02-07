@@ -21,6 +21,7 @@ import Watchlist from './pages/Watchlist/Watchlist';
 import Subscription from './pages/Subscription/Subscription';
 import Player from './pages/Player/Player';
 import AboutUs from './pages/AboutUs/AboutUs';
+import SearchBar from './components/SearchBar/SearchBar';
 
 
 const App = () => {
@@ -94,6 +95,7 @@ const App = () => {
             <Route path="/explore/:mediaType/*" element={<Explore />} />
             <Route path="/watchlist/*" element={<Watchlist />} />
             <Route path="/:mediaType/:id/*" element={<Details />} />
+            <Route path='/search/*'element={<SearchBar/>}/>
             <Route path='/search/:query/*'element={<Search/>}/>
             <Route path='/profile'element={<Profile/>}/> 
             <Route path='/updateProfile'element={<ProfileForm/>}/>
