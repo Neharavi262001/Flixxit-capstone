@@ -2,6 +2,17 @@ const asyncHandler=require('express-async-handler')
 const User =require('../models/userModel')
 const generateToken=require('../utils/generateToken')
 const { stripe } = require('../utils/stripe')
+const passwordValidator = require('password-validator');
+
+const passwordSchema = new passwordValidator();
+passwordSchema
+    .is().min(8)                                  
+    .is().max(100)                                 
+    .has().uppercase()                              
+    .has().lowercase()                            
+    .has().digits()                                
+    .has().symbols();                               
+
 
 const loginUser=asyncHandler(async(req,res)=>{
    const {email,password}=req.body
@@ -62,6 +73,11 @@ const loginUser=asyncHandler(async(req,res)=>{
 const registerUser=asyncHandler(async(req,res)=>{
   const { name, email, password } = req.body;
     console.log(req.body)
+
+    if (!passwordSchema.validate(password)) {
+      res.status(400);
+      throw new Error('Password must be at least 8 characters long and include uppercase, lowercase, digits, and symbols.');
+  }
 
     const userExists=await User.findOne({email})
     if (userExists){
@@ -148,90 +164,9 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 });
 
 
-const watchList=asyncHandler(async(req,res)=>{
-    try {
-        const userId = req.user._id;
-
-        const user = await User.findById(userId);
-    
-        if (user) {
-          const watchList = user.watchList;
-          return res.json({ watchList });
-        } else {
-          return res.status(404).json({ msg: "User not found." });
-        }
-      } catch (error) {
-        console.error(error);
-        return res.status(500).json({ msg: "Error retrieving watch list" });
-      }
-})
-
-const addToWatchList = asyncHandler(async (req, res) => {
-    try {
-        const newData = req.body;
-        console.log(req.body);
-        const userId = req.user._id;
-    
-        const user = await User.findById(userId);
-    
-        if (!user) {
-          return res.status(404).json({ msg: "User not found." });
-        }
-        if (newData && newData.title) {
-          const movieAlreadyInWatchList = user.watchList.find(({ id }) => id === newData.id);
-    
-          if (!movieAlreadyInWatchList) {
-            user.watchList.push(newData);
-            await user.save();
-    
-            return res.json({ msg: "Movie successfully added to watch list." });
-          } else {
-            return res.json({ msg: "Movie already in the watch list." });
-          }
-        } else {
-          return res.status(400).json({ msg: "Invalid data format." });
-        }
-      } catch (error) {
-        console.error(error);
-        return res.status(500).json({ msg: "Error adding movie to the watch list" });
-      }
-   
-});
-
-const removeFromWatchedList=asyncHandler(async(req,res)=>{
-    try {
-        const userId = req.user._id;
-        const dataIdToRemove = req.params.id;
-    
-        // Find the user by ID
-        const user = await User.findById(userId);
-    
-        if (user) {
-          // Check if the movie is in the watchList based on its title
-          const indexToRemove = user.watchList.findIndex(({ id }) => id === dataIdToRemove);
-    
-          if (indexToRemove !== -1) {
-            // Remove the movie from the watchList array
-            user.watchList.splice(indexToRemove, 1);
-    
-            // Save the updated user with the modified watchList
-            await user.save();
-    
-            return res.json({ msg: "Movie successfully removed from watch list." });
-          } else {
-            return res.json({ msg: "Movie not found in the watch list." });
-          }
-        } else {
-          return res.status(404).json({ msg: "User not found." });
-        }
-      } catch (error) {
-        console.error(error);
-        return res.status(500).json({ msg: "Error removing movie from watch list" });
-      }
-})
 
 
 
 
 
-module.exports={registerUser,loginUser,logoutUser,updateUserProfile,userProfile,addToWatchList,watchList,removeFromWatchedList}
+module.exports={registerUser,loginUser,logoutUser,updateUserProfile,userProfile}

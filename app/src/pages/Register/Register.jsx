@@ -35,7 +35,11 @@ const Register = () => {
                 dispatch(setCredentials({...response}))
                 navigate('/subscribe')
             } catch (err) {
-                toast(err.data?.message || err.error);  
+                if (err.data?.errors && err.data.errors.password) {
+                    toast.error(err.data.errors.password.message);
+                  } else {
+                    toast.error(err.data?.message || err.error);
+                  }
             }
         }
     }   
