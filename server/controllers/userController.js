@@ -68,15 +68,15 @@ const loginUser=asyncHandler(async(req,res)=>{
     
 }else{
   console.log('Password does not match');
-  res.status(401).json({ error: 'Invalid email or password' });
-    //throw new Error('Invalid credentials')
+  res.status(401)
+  throw new Error('Invalid credentials')
 }
 
 })
 
 const registerUser=asyncHandler(async(req,res)=>{
   const { name, email, password } = req.body;
-    console.log(req.body)
+   
 
     if (!passwordSchema.validate(password)) {
       res.status(400);
@@ -154,18 +154,27 @@ const updateUserProfile = asyncHandler(async (req, res) => {
           res.status(404).json({ error: 'User not found' });
           return;
       }
-
+      console.log('Request Object:', req);
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
 
-      if (req.body.password) {
+      if (req.body.newPassword) {
 
-         if (!passwordSchema.validate(req.body.password)) {
-                res.status(400).json({ error: 'Password must be at least 8 characters long and include uppercase, lowercase and digits.' });
-                return;
-            }
+        if (!passwordSchema.validate(req.body.newPassword)) {
+          res.status(400);
+          throw new Error('Password must be at least 8 characters long and include uppercase, lowercase and digits.');
+      }
+    
+
+            const isCurrentPasswordValid = await bcrypt.compare(req.body.password, user.password);
+            if (!isCurrentPasswordValid) {
+                res.status(401)
+                throw new Error('Current password is incorrect');
+            } 
+            console.log('Entered Password:', req.body.password);
+            console.log('Stored Hashed Password:', user.password);
         
-          user.password = req.body.password
+          user.password = req.body.newPassword
          
 
       }
@@ -177,12 +186,14 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         _id: updatedUser._id,
         name: updatedUser.name,
         email: updatedUser.email,
-        password:updatedUser.password,
+       
         message: 'Profile updated successfully',
     });
   } catch (error) {
       console.error('Error updating user profile:', error);
+
       res.status(500).json({ error: 'Internal Server Error' });
+      throw new Error(error)
   }
 });
 

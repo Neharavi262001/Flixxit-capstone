@@ -27,21 +27,31 @@ const ProfileForm = () => {
     
     const handleSubmit=async(e)=>{
         e.preventDefault()
+
+        if (name === userInfo.name && email === userInfo.email && !newPassword) {
+          toast.warning('No changes made.');
+          return;
+        }
         
-        if (newPassword !== confirmPassword){
-            toast.error('Passwords donot match')
+        if (newPassword && newPassword !== confirmPassword){
+            toast.error('Passwords donot match.Retype password')
         }else{
           try {
             const response =await updateProfile({
               _id:userInfo._id,
               name,
               email,
-              newPassword
+              password,
+              newPassword,
             }).unwrap()
             dispatch(setCredentials({...response}))
             toast.success('Profile updated successfully')
           } catch (err) {
-            toast(err.data?.message || err.error);  
+            if (err.data?.errors && err.data?.errors?.password) {
+              toast.error(err.data.errors.password.message);
+            } else {
+              toast.error(err.data?.message || err.error || 'Current password mismatch or new password not strong enough. Verify and try again');
+            }
           }
         }
     }   

@@ -35,7 +35,7 @@ const Register = () => {
                 dispatch(setCredentials({...response}))
                 navigate('/subscribe')
             } catch (err) {
-                if (err.data?.errors && err.data.errors.password) {
+                if (err.data?.errors && err.data?.errors?.password) {
                     toast.error(err.data.errors.password.message);
                   } else {
                     toast.error(err.data?.message || err.error);
