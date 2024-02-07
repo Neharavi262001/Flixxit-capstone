@@ -42,7 +42,7 @@ const Register = () => {
   return (
     <div className='register'>
         <div className="nav-top">
-            <img src={ navLogo || "https://app.gemoo.com/share/image-annotation/604743199318691840?codeId=vzxlEYOROQBX9&origin=imageurlgenerator&card=604743196353318912"} alt="logo" width='150px' height='35px' />
+            <img src={ navLogo || "https://app.gemoo.com/share/image-annotation/604743199318691840?codeId=vzxlEYOROQBX9&origin=imageurlgenerator&card=604743196353318912"} alt="logo" width='110px' height='35px' />
             <button className='signin-btn btn-block'><Link to='/login'>Sign in</Link></button>
         </div>
         <div className="login-container">

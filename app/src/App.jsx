@@ -22,6 +22,7 @@ import Subscription from './pages/Subscription/Subscription';
 import Player from './pages/Player/Player';
 import AboutUs from './pages/AboutUs/AboutUs';
 import SearchBar from './components/SearchBar/SearchBar';
+import PageNotFound from './pages/PageNotFound/PageNotFound';
 
 
 const App = () => {
@@ -80,7 +81,7 @@ const App = () => {
           <Route path='/login' element={<Login/>}/>
           <Route path='/register'element={<Register/>}/>
           <Route path='/subscribe' element={<Subscription/>}/>
-          
+          <Route path="*" element={<PageNotFound />} />
           <Route path='' element={<AuthRoutes/>}> 
             <Route
             path="/"

@@ -1,0 +1,23 @@
+.page-not-found {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .page-not-found h2 {
+    color: #ff0000; /* Orange color for the heading */
+  }
+  
+  .page-not-found p {
+    font-size: 18px;
+    color: #333; /* Dark gray color for paragraphs */
+  }
+  
+  .page-not-found a {
+    color: #007bff; /* Blue color for links */
+    text-decoration: none; /* Remove underline from links */
+  }
+  
+  .page-not-found a:hover {
+    text-decoration: underline; /* Underline links on hover */
+  }
+  

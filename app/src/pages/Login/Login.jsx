@@ -23,14 +23,6 @@ const Login = () => {
 
     const {userInfo}=useSelector((state)=>state.auth)
 
-    // useEffect(()=>{
-    //     if (userInfo){
-    //         navigate('/')
-    //     }
-    //     else{
-    //         navigate('/subscribe')
-    //     }
-    // },[navigate,userInfo])
 
     const handleOnChange=(e)=>{
         setFormData((prevState)=>({
@@ -51,8 +43,6 @@ const Login = () => {
               } else {
                 <button><Link to="/subscribe">Go to Subscribe Page</Link></button>
                 toast('User does not have an active subscription');
-                
-                
                 navigate('/subscribe')
               }
         } catch (err) {
@@ -63,8 +53,8 @@ const Login = () => {
   return (
     <div className='login'>
     <div className="nav-top">
-      <img src={ navLogo || "https://app.gemoo.com/share/image-annotation/604743199318691840?codeId=vzxlEYOROQBX9&origin=imageurlgenerator&card=604743196353318912"} alt="logo" width='150px' height='35px' />
-          <button className='signin-btn btn-block'>Register</button>
+      <img src={ navLogo || "https://app.gemoo.com/share/image-annotation/604743199318691840?codeId=vzxlEYOROQBX9&origin=imageurlgenerator&card=604743196353318912"} alt="logo" width='110px' height='35px' />
+          <button className='signin-btn btn-block' onClick={()=>{navigate('/register')}}>Register</button>
       </div>
       <div className="login-container">
           <div className="heading">
@@ -101,7 +91,7 @@ const Login = () => {
               <div className="form-group">
                   <p> Doesn't have an account ? <Link to='/register'>Register</Link></p>
                   <button className="btn-block">Sign in</button>
-                  <Link to='/subscribe'>Subscribe</Link>
+              
               </div>
           </form>
       </div>
