@@ -163,8 +163,40 @@
     align-items: center;
   }
   
-  /* Styles to show/hide the search bar with smooth transition */
   .search-container.search-visible .search-bar input{
     opacity: 1;
-    max-width: 200px; /* Adjust the max-width based on your design */
+    max-width: 200px; 
+  }
+  .mobile-navlinks{
+    display: none;
+  }
+
+  @media only screen and (max-width: 600px){
+    .navbar{
+      font-size: 1rem;
+      width:100vw
+    }
+    .mobile-navlinks{
+      display: grid;
+      text-align: center;
+      position: relative;
+    }
+    .nav-links{
+      position: absolute;
+      flex-direction: column;
+      background-color: #2c2b2b;
+      padding: 10px;
+      top: 100%;
+      left: 25%;
+      display: none;
+      
+    }
+    .nav-links.show {
+      display: grid;
+    }
+   
+    .search-container.search-visible .search-bar input{
+      opacity: 1;
+      max-width: 80px; 
+    }
   }

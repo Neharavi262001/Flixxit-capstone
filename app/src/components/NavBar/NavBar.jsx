@@ -14,7 +14,11 @@ const Navbar = () => {
     const [scrolling,setScrolling]=useState(false)
     const [query,setQuery]=useState("")
     const [isSearchVisible, setIsSearchVisible] = useState(false);
-    
+    const [showNavLinks, setShowNavLinks] = useState(false);
+
+    const toggleNavLinks = () => {
+      setShowNavLinks(!showNavLinks);
+    };
 
     
     const toggleSearch = () => {
@@ -74,6 +78,7 @@ const Navbar = () => {
         }
     }
 
+
   return (
     <nav className={`navbar ${scrolling ? 'navbar-scrolled' : ''}`}>
         <div className="nav-container">
@@ -81,15 +86,16 @@ const Navbar = () => {
                 
                <div className="nav-logo">
                 
-               <img src={ navLogo || "https://app.gemoo.com/share/image-annotation/604743199318691840?codeId=vzxlEYOROQBX9&origin=imageurlgenerator&card=604743196353318912"} alt="logo" width='85px' height='25px' />
+               <img src={ navLogo || "https://app.gemoo.com/share/image-annotation/604743199318691840?codeId=vzxlEYOROQBX9&origin=imageurlgenerator&card=604743196353318912"} alt="logo" width='80rem' height='30rem' />
                </div>
-               <div className="nav-links">
+               <div className="mobile-navlinks">
+                <FaBars onClick={toggleNavLinks}/>
+               </div>
+               <div className={`nav-links ${showNavLinks ? 'show' : ''}`}>
                <Link to='/'>Home</Link>
                <Link to='/explore/movie'>Movies</Link>
                 <Link to='explore/tv'>TV shows</Link>
                 <Link to='/watchlist'>Watchlist</Link>
-               
-               
                </div>
             </section>
             <section className="right-section">
