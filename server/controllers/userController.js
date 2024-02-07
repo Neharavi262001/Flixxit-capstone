@@ -3,6 +3,7 @@ const User =require('../models/userModel')
 const generateToken=require('../utils/generateToken')
 const { stripe } = require('../utils/stripe')
 const passwordValidator = require('password-validator');
+const bcrypt=require('bcryptjs')
 
 const passwordSchema = new passwordValidator();
 passwordSchema
@@ -11,13 +12,15 @@ passwordSchema
     .has().uppercase()                              
     .has().lowercase()                            
     .has().digits()                                
-    .has().symbols();                               
+                                   
 
 
 const loginUser=asyncHandler(async(req,res)=>{
    const {email,password}=req.body
+ 
 
    const user = await User.findOne({email})
+   console.log('User:', user);
    if (user &&(await user.matchPassword(password))){
 
     if (!user.stripeCustomerId) {
@@ -64,8 +67,9 @@ const loginUser=asyncHandler(async(req,res)=>{
 
     
 }else{
-    res.status(401)
-    throw new Error('Invalid credentials')
+  console.log('Password does not match');
+  res.status(401).json({ error: 'Invalid email or password' });
+    //throw new Error('Invalid credentials')
 }
 
 })
@@ -76,7 +80,7 @@ const registerUser=asyncHandler(async(req,res)=>{
 
     if (!passwordSchema.validate(password)) {
       res.status(400);
-      throw new Error('Password must be at least 8 characters long and include uppercase, lowercase, digits, and symbols.');
+      throw new Error('Password must be at least 8 characters long and include uppercase, lowercase and digits.');
   }
 
     const userExists=await User.findOne({email})
@@ -136,31 +140,50 @@ const userProfile=asyncHandler(async(req,res)=>{
         _id:_id,
         name:name,
         email:email,
+        
         stripeCustomerId:stripeCustomerId
     }
     res.status(200).json(user)
 })
 
 const updateUserProfile = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id);
+  try {
+      const user = await User.findById(req.user._id);
 
-    if (user) {
-        user.name = req.body.name || user.name;
-        user.email = req.body.email || user.email;
-        if (req.body.password) {
-            const salt = await bcrypt.genSalt(10);
-            user.password = await bcrypt.hash(req.body.password, salt);
-        }
-        const updatedUser = await user.save();
-        res.json({
-            _id: updatedUser._id,
-            name: updatedUser.name,
-            email: updatedUser.email,
-        });
-    } else {
-        res.status(404);
-        throw new Error('User not found');
-    }
+      if (!user) {
+          res.status(404).json({ error: 'User not found' });
+          return;
+      }
+
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+
+      if (req.body.password) {
+
+         if (!passwordSchema.validate(req.body.password)) {
+                res.status(400).json({ error: 'Password must be at least 8 characters long and include uppercase, lowercase and digits.' });
+                return;
+            }
+        
+          user.password = req.body.password
+         
+
+      }
+
+      const updatedUser = await user.save();
+      console.log('Updated User:', updatedUser);
+      
+      res.status(200).json({
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        password:updatedUser.password,
+        message: 'Profile updated successfully',
+    });
+  } catch (error) {
+      console.error('Error updating user profile:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 
