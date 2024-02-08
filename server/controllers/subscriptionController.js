@@ -5,25 +5,17 @@ const {stripe}=require('../utils/stripe')
 
 const viewAvailableSubscriptions = asyncHandler(async (req, res) => {
   try {
-    // Fetch all prices with associated product information
     const pricesWithProducts = await stripe.prices.list({ expand: ['data.product'] });
-
-    
-
-    // Process the prices with product names or return them as needed
     const formattedPrices = pricesWithProducts.data.map(price => ({
       id: price.id,
       productName: price.product.name,
-      amount: price.unit_amount / 100, // Convert amount to a readable format (assuming the amount is in cents)
+      amount: price.unit_amount / 100, 
       currency: price.currency,
       interval: price.recurring ? price.recurring.interval : null,
     }));
-
-    // Send the formatted prices as a JSON response
     res.json(formattedPrices);
 
   } catch (error) {
-    // Handle any errors that may occur during the API request
     console.error(`Error: ${error.message}`);
     res.status(500).json({ error: 'Internal Server Error' });
   }
@@ -32,7 +24,7 @@ const viewAvailableSubscriptions = asyncHandler(async (req, res) => {
 
 const checkoutSession = asyncHandler(async (req, res) => {
   try {
-     // Check if the user is authenticated
+    
      if (!req.user) {
       res.status(401).json({ error: 'User not authenticated' });
       return;
@@ -40,7 +32,6 @@ const checkoutSession = asyncHandler(async (req, res) => {
 
     const user = await User.findById(req.user);
 
-     // Check if the user exists
      if (!user) {
       res.status(404).json({ error: 'User not found' });
       return;
@@ -71,9 +62,6 @@ const checkoutSession = asyncHandler(async (req, res) => {
   }
 });
 
-
-
-
 const viewUserSubscriptionDetails = asyncHandler(async (req, res) => {
   try {
     
@@ -93,9 +81,9 @@ const viewUserSubscriptionDetails = asyncHandler(async (req, res) => {
     });
 
     function formatDate(timestamp) {
-      const date = new Date(timestamp * 1000); // Convert seconds to milliseconds
+      const date = new Date(timestamp * 1000); 
       const day = date.getDate().toString().padStart(2, '0');
-      const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
+      const month = (date.getMonth() + 1).toString().padStart(2, '0'); 
       const year = date.getFullYear();
       return `${day} / ${month} / ${year}`;
     }

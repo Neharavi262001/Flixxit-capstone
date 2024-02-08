@@ -1,15 +1,10 @@
 const express=require('express')
-const { 
-    registerUser,
-    loginUser,
-    logoutUser,
-    userProfile,
-    updateUserProfile,
-    
-                    } = require('../controllers/userController')
-const { viewAvailableSubscriptions, checkoutSession, viewUserSubscriptionDetails } = require('../controllers/subscriptionController')
 const router=express.Router()
+
 const {protectedRoutes} =require('../middlewares/authenticationMiddleware')
+
+const { registerUser,loginUser,logoutUser,userProfile,updateUserProfile,} = require('../controllers/userController')
+const { viewAvailableSubscriptions, checkoutSession, viewUserSubscriptionDetails } = require('../controllers/subscriptionController')
 const { addToWatchlist, getWatchlist, removeFromWatchlist, clearWatchlist } = require('../controllers/watchlistController')
 const { like, getRating, dislike } = require('../controllers/ratingController')
 const { getWatchHistory, addToWatchHistory, clearWatchHistory } = require('../controllers/watchHistoryController')

@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import './profile.css'
 import {FaUserAlt} from 'react-icons/fa'
-import { setCredentials } from '../../redux/auth/authSlice'
-import { Link, useNavigate } from 'react-router-dom'
+import {  useNavigate } from 'react-router-dom'
 import profileImage from '../../images/user_profile_image.png'
 import {useGetUserSubscriptionQuery,useClearWatchHistoryMutation}from '../../redux/user/userApiSlice'
 import WatchHistory from '../../components/WatchHistory/WatchHistory'
@@ -62,11 +61,8 @@ const Profile = () => {
       <div className="content-consumed">
         <h2>Continue watching</h2>
         <button onClick={handleClearWatchHistory}>Clear all</button>
-        <WatchHistory/>
-        
+        <WatchHistory/>  
       </div>
-     
-     
     </div>
   )
 }
