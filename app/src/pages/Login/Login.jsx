@@ -41,7 +41,7 @@ const Login = () => {
                 dispatch(setCredentials({...response}))
                 navigate('/');
               } else {
-                <button><Link to="/subscribe">Go to Subscribe Page</Link></button>
+                
                 toast('User does not have an active subscription');
                 navigate('/subscribe')
               }

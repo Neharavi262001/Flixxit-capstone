@@ -154,7 +154,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
           res.status(404).json({ error: 'User not found' });
           return;
       }
-      console.log('Request Object:', req);
+      
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
 
@@ -180,14 +180,23 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       }
 
       const updatedUser = await user.save();
-      console.log('Updated User:', updatedUser);
-      
-      res.status(200).json({
-        _id: updatedUser._id,
-        name: updatedUser.name,
-        email: updatedUser.email,
-       
-        message: 'Profile updated successfully',
+
+        const subscriptions = await stripe.subscriptions.list({
+      customer: user.stripeCustomerId,
+    });
+
+    const hasActiveSubscription = subscriptions.data.some(
+      (subscription) => subscription.status === 'active'
+    );
+
+    generateToken(res, updatedUser._id);
+
+    res.status(200).json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      hasActiveSubscription: hasActiveSubscription,
+      message: 'Profile updated successfully',
     });
   } catch (error) {
       console.error('Error updating user profile:', error);

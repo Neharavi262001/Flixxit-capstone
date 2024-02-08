@@ -8,10 +8,7 @@ const Rating = ({rating,contentId}) => {
 
     const [likeMutation] = useLikeMutation();
     const [dislikeMutation] = useDislikeMutation();
-  // useEffect(()=>{
-  //   liked
-  //   disliked
-  // },[liked,disliked])
+
 
     const handleLike=async()=>{
       try {

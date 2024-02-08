@@ -9,7 +9,7 @@ const authRoutes = () => {
   const hasActiveSubscription = userInfo && userInfo.hasActiveSubscription;
   return (
     hasActiveSubscription ? <Outlet /> : <Navigate to="/login" replace />
-    // userInfo ? <Outlet/> : <Navigate to='login' replace/>
+    
   )
 }
 
