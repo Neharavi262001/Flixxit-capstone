@@ -8,20 +8,21 @@ import './player.css'
 
 const Player = () => {
     const videos=[
+    
         {
-            url: video1,
+            url: video1 || "https://youtu.be/LSdpASKfVGo?si=sgjCP_kWlNGWlbC9",
             introDuration: 10, 
           },
           {
-            url: video2,
+            url: video2 || "https://youtu.be/UfPIUvCg3ps?si=SoAzbyjR-HqMm2tO",
             introDuration: 15,
           },
           {
-            url: video3,
-            introDuration: 10, // seconds
+            url: video3 || "https://youtu.be/UP8d21vKvIU?si=JKarvnY8_NK_TECU",
+            introDuration: 10, 
           },
           {
-            url: video4,
+            url: video4 || "https://youtu.be/WCnIP_F8n3w?si=tpYy4VwQt33Wbwk1",
             introDuration: 15,
           },
     ]
@@ -30,19 +31,12 @@ const Player = () => {
     const [skipIntro, setSkipIntro] = useState(false);
     const [videoQuality, setVideoQuality] = useState('auto');
     const [showSkipIntro, setShowSkipIntro] = useState(true);
-    // const [showHDOption, setShowHDOption] = useState(true);
-    // const [isMouseActive, setIsMouseActive] = useState(false);
-    // const [elapsedTime, setElapsedTime] = useState(0);
+    
 
     const handleVideoEnd = () => {
-        // Switch to the next video when the current one ends
         setCurrentVideo((prevVideo) => (prevVideo + 1) % videos.length);
-        // Reset skipIntro and showSkipIntro on video end
         setSkipIntro(false);
         setShowSkipIntro(true);
-    
-        // setShowHDOption(true);
-        // setElapsedTime(0);
       };
 
     const handleSkipIntroToggle = () => {
@@ -79,8 +73,6 @@ const Player = () => {
   return (
     <div className='video-player-container'>
       <ReactPlayer
-      
-      
         url={getCurrentVideoUrl()}
         playing={true}
         controls={true}
