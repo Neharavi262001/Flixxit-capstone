@@ -46,8 +46,6 @@ const Explore = () => {
         handleFetchData()
       }, [mediaType,selectedGenres]);
 
-
-
     const fetchNextPageData = async () => {
         try {
           const res = await fetchContent(`/discover/${mediaType}?page=${pageNum}`);
@@ -65,9 +63,6 @@ const Explore = () => {
         }
       };
 
-   
-   
-      
       const handleFetchData = async () => {
         setLoading(true);
         try {
@@ -75,15 +70,10 @@ const Explore = () => {
             if (selectedGenres) {
                 genreQuery = `&with_genres=${selectedGenres.map(g => g.value).join(',')}`;
             }
-            console.log('Selected Genres:', selectedGenres);
-            console.log('Constructed Genre Query:', genreQuery);
-    
             const endpoint = `/discover/${mediaType}?${genreQuery}${selectedSort ? `&sort_by=${selectedSort.value}` : ''}`;
-            console.log('Constructed Endpoint:', endpoint);
-    
             const filteredData = await fetchContent(endpoint);
             setData(filteredData);
-            console.log('Fetched Data:', filteredData);
+  
     
         } catch (error) {
             console.error('Error fetching filtered data:', error);
@@ -103,11 +93,6 @@ const Explore = () => {
         setSelectedSort(selectedOption);
         handleFetchData()
       }
-
-     
-
-
-
     return (
       <div className="explore-page">
             
@@ -146,10 +131,7 @@ const Explore = () => {
               placeholder="Select Sort Option"
             />
           </div>
-
-          <button onClick={handleFetchData}>Filter <FaFilter/></button>
-  
-                      
+          <button onClick={handleFetchData}>Filter <FaFilter/></button>           
           </div>
         </div>
                 {loading && <div>Loading...</div>}
@@ -160,8 +142,7 @@ const Explore = () => {
                                 className="content"
                                 dataLength={data?.results?.length || []}
                                 next={fetchNextPageData}
-                                hasMore={pageNum <= data?.total_pages}
-                                
+                                hasMore={pageNum <= data?.total_pages}  
                             >
                               <div className="result-container">
                               {data?.results?.map((item, index) => {

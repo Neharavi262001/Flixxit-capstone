@@ -19,7 +19,6 @@ export const contentSlice = createSlice({
       state.genres = action.payload;
   },
 
-   
   },
 });
 

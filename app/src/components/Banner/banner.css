@@ -16,11 +16,11 @@
 }
 
 .banner-info{
-    width: 90%; /* Adjust width for smaller screens */
+    width: 90%; 
     position: absolute;
-    left: 40%; /* Center horizontally */
-    bottom: 5%; /* Move closer to the bottom */
-    transform: translateX(-50%); /* Center horizontally */
+    left: 40%; 
+    bottom: 5%; 
+    transform: translateX(-50%); 
     color: white;
     display: flex;
     flex-direction: column;
@@ -107,7 +107,7 @@
     }
 
     .banner-btns {
-        justify-content: space-around; /* Display buttons in a column */
+        justify-content: space-around; 
     }
 
     .banner-btn {

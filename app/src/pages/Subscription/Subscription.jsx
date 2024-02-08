@@ -3,24 +3,16 @@ import './subscription.css'
 import { useGetSubscriptionPlansQuery,useCreateSessionMutation } from '../../redux/user/userApiSlice'
 
 const Subscription = () => {
-  useEffect(()=>{
-
-  },[])
-
-  
-
   const { data: subscriptionPlans, error, isLoading } = useGetSubscriptionPlansQuery();
   const [createSession] = useCreateSessionMutation();
-  console.log(subscriptionPlans)
+ 
 
   const handleCreateSession=async(planId)=>{
     try {
       const id=String(planId)
       const {data} = await createSession(id);
-      console.log(data)
-
+     
       if (data && data.checkoutUrl) {
-        // Redirect to the hosted invoice URL
         window.location.href = data.checkoutUrl;
       } else {
         console.error('Invalid session data:', data);

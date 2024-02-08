@@ -10,30 +10,24 @@ const SearchBar = () => {
     const handleSearch = (e) => {
       if (e.key === 'Enter' && query.length > 0) {
        navigate(`/search/${query}`);
-       
-      }
-    };
-    const handleSearchIconClick = () => {
-      if (query.length > 0) {
-        navigate(`/search/${query}`);
       }
     };
 
   return (
     
        <div className="search-container">
-             <h2>Find your favourite movies and TV shows</h2> 
-                    <div className='search-input'>
-                        <input 
-                            type="text" 
-                            placeholder="Search..."
-                            onChange={(e)=>setQuery(e.target.value)}
-                            onKeyUp={handleSearch}
-                         />
-                          <div className="search-icon" onClick={handleSearch}>
-                               <FaSearch />
-                          </div>
-                    </div>
+          <h2>Find your favourite movies and TV shows</h2> 
+            <div className='search-input'>
+                <input 
+                   type="text" 
+                    placeholder="Search..."
+                    onChange={(e)=>setQuery(e.target.value)}
+                    onKeyUp={handleSearch}
+                />
+                 <div className="search-icon" onClick={handleSearch}>
+                     <FaSearch />
+                  </div>
+            </div>
             
            
     </div>

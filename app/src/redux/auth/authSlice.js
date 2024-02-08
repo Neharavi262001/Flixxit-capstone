@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-//import { useAddToWatchListMutation, useRemoveFromWatchListMutation, useWatchListQuery } from '../user/userApiSlice';
+
 const initialState={
     userInfo:localStorage.getItem('userInfo')
     ? JSON.parse(localStorage.getItem('userInfo'))
     : null,
     
 }
-
 
 const authSlice=createSlice({
     name:'auth',
@@ -20,17 +19,8 @@ const authSlice=createSlice({
             state.userInfo=null,
             localStorage.removeItem('userInfo')
         },
-
-
-      
     }
-
-
 })
-
-
-
-
 
 export const {setCredentials,clearCredentials } =authSlice.actions
 export default authSlice.reducer

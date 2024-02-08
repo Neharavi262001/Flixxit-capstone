@@ -51,9 +51,6 @@ const Search = () => {
     fetchSearchResult()
     setPageNum(1)
   },[query])
-  console.log(data)
-
-
 
   return (
     <div>

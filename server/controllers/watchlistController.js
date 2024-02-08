@@ -69,14 +69,12 @@ const getWatchlist=asyncHandler(async(req,res)=>{
 
 const clearWatchlist = asyncHandler(async (req, res) => {
     try {
-      // Find all items in the watchlist for the user
       const watchlistItems = await Watchlist.find({ user: req.user.id });
   
       if (watchlistItems.length === 0) {
         return res.status(404).json({ error: "Watchlist is already empty" });
       }
   
-      // Remove all items from the watchlist
       await Watchlist.deleteMany({ user: req.user.id });
   
       res.status(200).json({ message: "Watchlist cleared successfully" });

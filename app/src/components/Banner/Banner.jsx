@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import './banner.css'
-import {FaInfo, FaInfoCircle, FaPlay,FaPlus} from 'react-icons/fa'
+import { FaInfoCircle, FaPlay} from 'react-icons/fa'
 import useFetch from '../../hooks/useFetch'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import {useAddToWatchHistoryMutation} from '../../redux/user/userApiSlice'
 
 const Banner = () => {
      const [background,setBackground]=useState('')
@@ -12,11 +13,10 @@ const Banner = () => {
      const [id,setId]=useState('')
      const [mediaType,setmediaType]=useState('')
     const [loading,setLoading]=useState(true)
-
+   
      const navigate=useNavigate()
 
      const {url}=useSelector((state)=>state.content)
-
      const {content}=useFetch('/trending/all/week')
 
      const truncate=(string,number)=>{
@@ -28,8 +28,7 @@ const Banner = () => {
   
         if (moviesWithBackdrop && moviesWithBackdrop.length > 0) {
           const bannerMovie = moviesWithBackdrop[Math.floor(Math.random() * moviesWithBackdrop.length)];
-          console.log(bannerMovie);
-  
+        
           const movieTitle = bannerMovie?.title || bannerMovie?.name || bannerMovie?.original_name;
           setTitle(movieTitle);
   
@@ -56,15 +55,16 @@ const Banner = () => {
       navigate(`/${mediaType}/${id}`)
     }
     
+
+   
    
 
   return (
     <div className={`banner ${loading ? 'loading' : ''}`}>
     {loading ? (
-      // Loading skeleton
       <div className="skeleton"></div>
     ) : (
-      // Actual content
+     
       <>
         <img className="banner-image" width="100vw" src={background} alt="" />
 

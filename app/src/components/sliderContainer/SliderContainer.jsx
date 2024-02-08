@@ -1,10 +1,7 @@
 import React from 'react'
-import './sliderContainer.css'
 import SliderList from '../SliderList/SliderList'
 
 const SliderContainer = () => {
-  
-
   return (
     <div className='slider-container'>
       <SliderList title='Trending this week' endpoint='/trending/all/week'/>

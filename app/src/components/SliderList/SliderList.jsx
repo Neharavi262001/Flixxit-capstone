@@ -1,11 +1,11 @@
-import React, { useRef ,useEffect,useState} from 'react'
+import React, { useRef ,useState} from 'react'
 import {FaChevronLeft,FaChevronRight} from 'react-icons/fa'
 import './sliderList.css'
 import Card from '../Card/Card'
 import useFetch from '../../hooks/useFetch'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import Filter from '../Filter/Filter'
+
 
 
 export default React.memo(
@@ -46,7 +46,6 @@ export default React.memo(
               {content?.results?.slice(0,27).map((item) => {
                 const posterUrl=item?.poster_path ? url.poster + item?.poster_path : url.backdrop + item?.backrop_path
                 return (
-                  <>
                  
                    <Card 
                       key={item?.id} 
@@ -57,8 +56,7 @@ export default React.memo(
                       imdbRating={item?.vote_average.toFixed(1)}
                       itemGenre={item?.genre_ids}
                     /> 
-                  </>
-
+            
                 )}
             )}
               </div>

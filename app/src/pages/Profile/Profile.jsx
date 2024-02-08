@@ -12,9 +12,7 @@ const Profile = () => {
   const {userInfo}=useSelector((state)=>state.auth)
   const {data:getUserSubscription,isLoading, isError}=useGetUserSubscriptionQuery()
   const [clearWatchHistory]=useClearWatchHistoryMutation()
-  console.log(getUserSubscription)
-
-
+  
   const handleClearWatchHistory=async()=>{
     try {
       await clearWatchHistory()

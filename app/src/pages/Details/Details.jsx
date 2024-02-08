@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import './details.css'
-
-
 import useFetch from '../../hooks/useFetch'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import {FaPlay,FaPlus,FaCheck, FaStar, FaSave, FaRegBookmark, FaBookmark} from 'react-icons/fa'
+import {  useSelector } from 'react-redux'
+import {FaPlay, FaStar, FaRegBookmark, FaBookmark} from 'react-icons/fa'
 import dayjs from 'dayjs'
 import Genres from '../../components/Genres/Genres'
 import { useAddToWatchlistMutation,useRemoveFromWatchlistMutation,useGetRatingQuery,useGetWatchlistQuery, useAddToWatchHistoryMutation } from '../../redux/user/userApiSlice'
@@ -29,7 +27,7 @@ const Details = () => {
 
    const [inWatchList,setInWatchList]=useState(false)
    const[inWatchHistory,setInWatchHistory]=useState(false)
-     const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   
 
   useEffect(() => {
@@ -38,7 +36,6 @@ const Details = () => {
         const isInWatchlist = getWatchlist?.some((item) => item.contentId === id);
         setInWatchList(isInWatchlist);
         getRating
-        console.log(getRating)
        setIsLoading(false)
        
       } catch (error) {
@@ -73,7 +70,6 @@ const Details = () => {
       };
 
       const response = await addToWatchHistory(newItem).unwrap();
-      console.log(response);
       setInWatchHistory(true);
 
     } catch (error) {
@@ -101,13 +97,12 @@ const Details = () => {
         user: userInfo.id,
         contentId: String(id),
         contentTitle: content?.title || content?.name || content?.original_name,
-        contentPoster:  url.poster + content.poster_path,
+        contentPoster:  url?.poster + content?.poster_path,
         contentType:mediaType,
         contentRating:content?.vote_average.toFixed(1)
       };
 
       const response = await addToWatchlist(newItem).unwrap();
-      console.log(response);
       setInWatchList(true);
 
     } catch (error) {
@@ -134,15 +129,11 @@ const Details = () => {
     <>
     <div className={`details ${isLoading || contentIsLoading ? 'loading' : ''}`}>
     {isLoading || contentIsLoading ? (
-        
-        <div className="skeleton">
-       
-        </div>
+        <div className="skeleton"></div>
     ) : (
-        // Actual content
         <>
             <div className="backdrop">
-                <img src={url?.backdrop + content?.backdrop_path} alt="" className='backdrop-image' />
+                <img src={(url?.backdrop ?? '') + (content?.backdrop_path ?? '')} alt="" className='backdrop-image' />
             </div>
             <div className="banner-info">
                 <span className="banner-title">
@@ -175,10 +166,7 @@ const Details = () => {
                     <Rating rating={getRating} contentId={id} />
                 </span>
             </div>
-            
-    
         </>
-        
     )}
    
 </div>
@@ -187,8 +175,7 @@ const Details = () => {
     </div>
 </>
     
-  )
-}
+  )}
 
 export default Details
 

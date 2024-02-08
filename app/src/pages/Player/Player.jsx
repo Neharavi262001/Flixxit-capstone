@@ -80,7 +80,7 @@ const Player = () => {
         config={{
           file: {
             attributes: {
-              controlsList: 'nodownload', // Disable download button
+              controlsList: 'nodownload', 
             },
             tracks: [],
           },

@@ -4,20 +4,20 @@
   }
   
   .page-not-found h2 {
-    color: #ff0000; /* Orange color for the heading */
+    color: #ff0000; 
   }
   
   .page-not-found p {
     font-size: 18px;
-    color: #333; /* Dark gray color for paragraphs */
+    color: #333; 
   }
   
   .page-not-found a {
-    color: #007bff; /* Blue color for links */
-    text-decoration: none; /* Remove underline from links */
+    color: #007bff;
+    text-decoration: none; 
   }
   
   .page-not-found a:hover {
-    text-decoration: underline; /* Underline links on hover */
+    text-decoration: underline;
   }
   

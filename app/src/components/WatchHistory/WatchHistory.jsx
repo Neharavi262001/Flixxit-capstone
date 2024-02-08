@@ -7,14 +7,15 @@ import { useNavigate } from 'react-router-dom'
 const WatchHistory = () => {
   const navigate=useNavigate()
   const{data:getWatchHistory,isLoading,error}=useGetWatchHistoryQuery()
-  console.log(getWatchHistory)
+  
   return (
     <div className='result-container'>
+      {isLoading && <p>Loading......</p>}
      
      { getWatchHistory&& getWatchHistory?.map((item)=>{
             const title = item.contentTitle || item.name;
               return (
-                <div className="watchHistory-item">
+                <div className="watchHistory-item" key={item.contentId} >
                    <Card className="watchHistory-card"
                   key={item.contentId} 
                   title={title}

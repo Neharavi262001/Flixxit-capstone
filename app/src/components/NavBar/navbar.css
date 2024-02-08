@@ -60,11 +60,11 @@
 .options{
     display: none;
     position: absolute;
-    top: 100%; /* Position the options below the profile */
+    top: 100%; 
     left: 0;
-    background-color:var(--theme-color); /* Optional: Set background color */
-    border: 1px solid #2c2b2b; /* Optional: Add a border */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a box shadow */
+    background-color:var(--theme-color); 
+    border: 1px solid #2c2b2b;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
     padding: 5px;
 }
 .options span {
@@ -98,7 +98,6 @@
 .fa-sign-out-alt {
   margin-right: 5px;
   
-   /* Adjust as needed */
 }
 
 .categories {

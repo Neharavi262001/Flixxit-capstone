@@ -3,7 +3,7 @@ import './navbar.css'
 import navLogo from '../../images/flixxit_logo.png'
 import {FaSearch,FaUserCircle,FaCaretDown,FaSignOutAlt,FaBars} from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useLogoutMutation } from '../../redux/user/userApiSlice'
 import {clearCredentials} from '../../redux/auth/authSlice'
 

@@ -87,9 +87,7 @@ export const userApiSlice=apiSlice.injectEndpoints({
         }),
         invalidatesTags:['WatchHistory']
       }),
-
-
-
+      
         getWatchlist: builder.query({
             query: () => ({
               url: `${USERS_BACKEND_URL}/watchList`,
@@ -152,17 +150,8 @@ export const userApiSlice=apiSlice.injectEndpoints({
         invalidatesTags:['Rate']
       }),
 
-
-
-      
-
-
-
     }),
 })
-
-
-
 
 export const {useLoginMutation,
             useLogoutMutation,

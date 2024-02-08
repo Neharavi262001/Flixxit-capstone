@@ -17,10 +17,8 @@ passwordSchema
 
 const loginUser=asyncHandler(async(req,res)=>{
    const {email,password}=req.body
- 
-
    const user = await User.findOne({email})
-   console.log('User:', user);
+  
    if (user &&(await user.matchPassword(password))){
 
     if (!user.stripeCustomerId) {
@@ -31,16 +29,10 @@ const loginUser=asyncHandler(async(req,res)=>{
       const subscriptions = await stripe.subscriptions.list({
         customer: user.stripeCustomerId,
       });
-  
-      console.log('All Subscriptions:', subscriptions);
-  
       const hasActiveSubscription = subscriptions.data.some(
         (subscription) => subscription.status === 'active'
       );
-      console.log('Has Active Subscription:', hasActiveSubscription);
-  
-  
-      //generateToken(res,user._id)
+    
 
         if (hasActiveSubscription) {
 
@@ -67,7 +59,7 @@ const loginUser=asyncHandler(async(req,res)=>{
 
     
 }else{
-  console.log('Password does not match');
+ 
   res.status(401)
   throw new Error('Invalid credentials')
 }
@@ -76,8 +68,6 @@ const loginUser=asyncHandler(async(req,res)=>{
 
 const registerUser=asyncHandler(async(req,res)=>{
   const { name, email, password } = req.body;
-   
-
     if (!passwordSchema.validate(password)) {
       res.status(400);
       throw new Error('Password must be at least 8 characters long and include uppercase, lowercase and digits.');
@@ -96,7 +86,7 @@ const registerUser=asyncHandler(async(req,res)=>{
         country: 'IN',
       },
     })
-    console.log('Stripe Customer:', customer);
+   
     const user= await User.create(
         {
             name,
@@ -164,19 +154,12 @@ const updateUserProfile = asyncHandler(async (req, res) => {
           res.status(400);
           throw new Error('Password must be at least 8 characters long and include uppercase, lowercase and digits.');
       }
-    
-
             const isCurrentPasswordValid = await bcrypt.compare(req.body.password, user.password);
             if (!isCurrentPasswordValid) {
                 res.status(401)
                 throw new Error('Current password is incorrect');
             } 
-            console.log('Entered Password:', req.body.password);
-            console.log('Stored Hashed Password:', user.password);
-        
           user.password = req.body.newPassword
-         
-
       }
 
       const updatedUser = await user.save();

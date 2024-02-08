@@ -6,7 +6,6 @@ const userRoutes=require('./routes/userRoutes')
 const cookieParser=require('cookie-parser')
 const cors=require('cors')
 
-
 const app=express()
 const PORT= process.env.PORT || 8000
 db()

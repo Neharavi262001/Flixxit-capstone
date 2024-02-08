@@ -29,10 +29,7 @@ const App = () => {
     const dispatch=useDispatch()
 
     const {url} =useSelector((state)=>state.content)
-    console.log(url)
-
-
-
+  
   const fetchConfig = async () => {
     try {
       const res = await fetchContent('/configuration');
@@ -42,7 +39,7 @@ const App = () => {
         profile: res.images.secure_base_url + 'original',
       };
       dispatch(fetchUrl(imageUrls));
-      console.log(res);
+
     } catch (error) {
       console.error('Error fetching configuration:', error);
     }
@@ -58,12 +55,10 @@ const App = () => {
     })
 
     const response=await Promise.all(promises);
-    console.log(response)
+   
     response.map(({genres})=>{
       return genres.map((genre)=>(allGenres[genre.id]=genre))
     })
-
-    console.log("all genres : ",allGenres)
     dispatch(fetchGenres(allGenres))
 
   }

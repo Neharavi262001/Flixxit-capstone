@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
 import './watchlist.css'
 import Card from '../../components/Card/Card';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -8,9 +7,7 @@ import {useGetWatchlistQuery,useRemoveFromWatchlistMutation,useClearWatchlistMut
 
 
 const Watchlist = () => {
-    const dispatch=useDispatch()
-    //const { mediaType } = useParams();
-    const {url}=useSelector((state)=>state.content)
+    
     const navigate=useNavigate()
 
     const {data:getWatchlist,error, isLoading}=useGetWatchlistQuery()
@@ -22,9 +19,6 @@ const Watchlist = () => {
       try {
         const formatcontentId=String(contentId)
           await removeFromWatchlist( formatcontentId ).unwrap()
-
-
-         
       } catch (error) {
          console.error('Error removing from watchlist:', error);
       }
@@ -42,7 +36,6 @@ const Watchlist = () => {
 
   return (
     <div className='watchlist-page'>
-      
       <div className="watchlist-top">
         <h2>Your List</h2>
         <button onClick={handleClearWatchlist}>Clear watchlist</button>
@@ -52,12 +45,10 @@ const Watchlist = () => {
 
           {isLoading && <p>Loading watchlist....</p>}
           {error && <p>Error fetching watchlist: {error.message}</p>}
-
-        
             { getWatchlist&& getWatchlist?.map((item)=>{
             const title = item.contentTitle || item.name;
               return (
-                <div className="watchlist-item">
+                <div key={item.contentId} className="watchlist-item">
                    <Card className="watchlist-card"
                   key={item.contentId} 
                   title={title}
@@ -66,15 +57,9 @@ const Watchlist = () => {
                   handleNavigate={()=>navigate(`/${item?.contentType }/${item.contentId}`)}
                   />
                   <button onClick={() => handleRemoveFromWatchlist(item.contentId)}> &#10006;</button>
-
                 </div>
-                 
-               
-              )
-          })
-          } 
-
-        
+                 )
+          })}
     </div>
      
     </div>

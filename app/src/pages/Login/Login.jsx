@@ -34,8 +34,6 @@ const Login = () => {
         e.preventDefault()
         try {
             const response=await login(formData).unwrap()
-            console.log('Response:', response);
-
             const hasActiveSubscription = response.hasActiveSubscription;
             if (hasActiveSubscription) {
                 dispatch(setCredentials({...response}))

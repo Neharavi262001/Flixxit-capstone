@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import {FaThumbsDown,FaThumbsUp,FaRegThumbsDown,FaRegThumbsUp} from 'react-icons/fa'
 import './rating.css'
 import{useLikeMutation,useDislikeMutation} from '../../redux/user/userApiSlice'
+
+
 const Rating = ({rating,contentId}) => {
     const [liked,setLiked]=useState(false)
     const [disliked,setDisliked]=useState(false)
@@ -12,7 +14,6 @@ const Rating = ({rating,contentId}) => {
 
     const handleLike=async()=>{
       try {
-        // Call the like mutation
         await likeMutation(contentId);
         setLiked(true);
         setDisliked(false);
@@ -47,8 +48,6 @@ const Rating = ({rating,contentId}) => {
         </button>
         <span>{rating?.dislikes}</span>
         </div>
-      
-      
     </div>
   )
 }
