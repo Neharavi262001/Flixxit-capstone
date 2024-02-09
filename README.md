@@ -161,25 +161,7 @@ To use Flixxit, follow these steps:
 
 
 Now you're all set to enjoy a personalized streaming experience on Flixxit!
-=======
-   - ![Screenshot 1](path/to/screenshot1.png)
-   - ![Screenshot 2](path/to/screenshot2.png)
-   - ![Screenshot 3](path/to/screenshot3.png)
 
-Now you're all set to enjoy a personalized streaming experience on Flixxit!
-
-
-
-
-
-
-
-
-
-
-## Demo
-
-Insert gif or link to demo
 
 
 ## API Reference
