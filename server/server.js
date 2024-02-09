@@ -10,10 +10,6 @@ const app=express()
 const PORT= process.env.PORT || 8000
 db()
 
-
-
-  
-
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
