@@ -36,7 +36,15 @@ const loginUser=asyncHandler(async(req,res)=>{
 
         if (hasActiveSubscription) {
 
-          generateToken(res,user._id)
+         const token= generateToken(user._id)
+         res.cookie('jwt',token,{
+          httpOnly:true,
+          secure:true,
+          maxAge:10*24*60*60*1000
+  
+      })
+         
+
 
         res.status(201).json({
           _id: user._id,
