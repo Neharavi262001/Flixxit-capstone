@@ -8,7 +8,7 @@ Welcome to Flixxit, your personal streaming experience built with the MERN stack
 
 ## Table of  Contents
 - [Features](#features)
-- [Tech Stack](#technology-stack)
+- [Tech Stack](#tech-stack)
 - [Setup Instructions](#setup-instructions)
   - [Prerequisites](#prerequisites)
   - [Steps to Run Locally](#steps-to-run-locally)
@@ -118,15 +118,51 @@ Run server and app separately
  npm run app
 npm run server
 ```
+### Usage
+
+To use Flixxit, follow these steps:
+
+1. **Register:**
+   - Create a new account by signing up with your name, email ID and password.
+    - Remember to register using a strong password, including uppercase letters and numbers.
+    - ![Register](./usage_images/register.png)
+
+
+2. **Select a Plan:**
+   - Choose a subscription plan (monthly or yearly) that suits your preferences.
+    - ![Subscribe](./usage_images/sub%20plan.png)
+
+
+3. **Checkout with Stripe:**
+   - Proceed to checkout using Stripe for secure and efficient payment processing.
+   - Use the following test card number for payments in India: **4000003560000008**.
+    - ![Checkout](./usage_images/stripe%20checkout.png)
+
+
+4. **Log In:**
+   - Log in to your Flixxit account with your credentials.
+    - ![Subscribe](./usage_images/login.png)
+
+5. **Enjoy Watching:**
+   - Explore the diverse range of content available on Flixxit.
+   - Add programs to your watchlist for easy access.
+   - Rate and review your favorite titles.
+   - Utilize the search feature to discover new content.
+   - Use the video player with the "Skip Intro" feature for a seamless viewing experience.
+
+6. **Screenshots:**
+   - ![Screenshot 1](./usage_images/dashboard.png)
+   - ![Screenshot 2](./usage_images/carousels.png)
+   - ![Screenshot 3](./usage_images/details.png)
+   - ![Screenshot 4](./usage_images/search.png)
+   - ![Screenshot 5](./usage_images/user%20profile.png)
+
+
+Now you're all set to enjoy a personalized streaming experience on Flixxit!
 
 
 
-  
 
-
-## Screenshots
-
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
 
 
