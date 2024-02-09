@@ -10,10 +10,19 @@ const app=express()
 const PORT= process.env.PORT || 8000
 db()
 
+
+const corsOptions = {
+    origin: 'https://flixxit-frontend-10hi.onrender.com/',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 204,
+  };
+  
+
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
-app.use(cors())
+app.use(cors(corsOptions))
 
 app.use('/api/user',userRoutes)
 
