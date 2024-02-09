@@ -12,7 +12,6 @@ Welcome to Flixxit, your personal streaming experience built with the MERN stack
 - [Setup Instructions](#setup-instructions)
   - [Prerequisites](#prerequisites)
   - [Steps to Run Locally](#steps-to-run-locally)
-- [Deployment](#deployment)
 - [Usage](#usage)
 - [API References](#api-references)
 
@@ -120,10 +119,15 @@ npm run server
 ```
 ### Usage
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0bcf4ed387de05052933364a8be822d77a084a87
 To use Flixxit, follow these steps:
 
 1. **Register:**
    - Create a new account by signing up with your name, email ID and password.
+<<<<<<< HEAD
     - Remember to register using a strong password, including uppercase letters and numbers.
     - ![Register](./usage_images/register.png)
 
@@ -142,6 +146,21 @@ To use Flixxit, follow these steps:
 4. **Log In:**
    - Log in to your Flixxit account with your credentials.
     - ![Subscribe](./usage_images/login.png)
+=======
+   - Remember to register using  a strong password including Uppercase letters and numbers
+      - ![Register]()
+     
+
+2. **Select a Plan:**
+   - Choose a subscription plan (monthly or yearly) that suits your preferences.
+
+3. **Checkout with Stripe:**
+   - Proceed to checkout using Stripe for secure and efficient payment processing.
+   - Use the following test card number for payments in India: **4000040008979**.
+
+4. **Log In:**
+   - Log in to your Flixxit account with your credentials.
+>>>>>>> 0bcf4ed387de05052933364a8be822d77a084a87
 
 5. **Enjoy Watching:**
    - Explore the diverse range of content available on Flixxit.
@@ -151,6 +170,7 @@ To use Flixxit, follow these steps:
    - Use the video player with the "Skip Intro" feature for a seamless viewing experience.
 
 6. **Screenshots:**
+<<<<<<< HEAD
    - ![Screenshot 1](./usage_images/dashboard.png)
    - ![Screenshot 2](./usage_images/carousels.png)
    - ![Screenshot 3](./usage_images/details.png)
@@ -159,6 +179,14 @@ To use Flixxit, follow these steps:
 
 
 Now you're all set to enjoy a personalized streaming experience on Flixxit!
+=======
+   - ![Screenshot 1](path/to/screenshot1.png)
+   - ![Screenshot 2](path/to/screenshot2.png)
+   - ![Screenshot 3](path/to/screenshot3.png)
+
+Now you're all set to enjoy a personalized streaming experience on Flixxit!
+
+>>>>>>> 0bcf4ed387de05052933364a8be822d77a084a87
 
 
 
