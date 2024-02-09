@@ -100,7 +100,13 @@ const registerUser=asyncHandler(async(req,res)=>{
 
 
     if (user){
-        generateToken(res,user._id)
+        generateToken(user._id)
+         res.cookie('jwt',token,{
+        httpOnly:true,
+        secure:true,
+        maxAge:10*24*60*60*1000
+
+    })
         res.status(201).json({
             _id:user._id,
             name:user.name,
