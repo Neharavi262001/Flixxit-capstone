@@ -78,16 +78,18 @@ Welcome to Flixxit, your personal streaming experience built with the MERN stack
 
 `git clone https://github.com/Neharavi262001/Flixxit-capstone.git`
 
-2. Navigate to the project folder. Open a terminal in root directory. To install dependencies for backend:
+2. Navigate to the project folder. Open a terminal. Navigate to server directory. To install dependencies for backend:
 
 ```bash
- npm install
+   cd server
+   npm install
 ```
-3. Rename `.env.example` to `.env` file in root directory.
+3. Rename `.env.example` to `.env` file in server directory.
  Set up environment variables .To run this project, you will need to add the following environment variables to your .env file.
 For Stripe, go to [Stripe](https://stripe.com/) and get your publishable key and secret key.
 
 `PORT`
+`MONGODB_URI`
 `SECRET_TOKEN`
 `STRIPE_PUBLISHABLE_KEY`
 `STRIPE_SECRET_KEY`
@@ -103,21 +105,18 @@ Go to [The Movie Database (TMDb)](https://www.themoviedb.org/) and get your TMDB
 
 `VITE_APP_TMDB_TOKEN`
 
-To run the project, navigate to root directory
+To run the app, navigate to root directory
 
 ```bash
- cd ..
-```
-Run the app and server concurrently
-```bash
+ cd app
  npm run dev
 ```
-(or)
-Run server and app separately 
+Run the  server 
 ```bash
- npm run app
-npm run server
+   cd server
+ npm run server
 ```
+
 ### Usage
 
 To use Flixxit, follow these steps:
