@@ -8,7 +8,6 @@ const protectedRoutes=asyncHandler(async(req,res,next)=>{
     if (token){
         try {
           const decoded=jwt.verify(token,process.env.SECRET_TOKEN) 
-        
           req.user=await User.findById(decoded.userId).select('-password') 
           next()
         } catch (error) {
