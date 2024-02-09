@@ -8,7 +8,8 @@ export default defineConfig({
     port:3000,
     proxy:{
       '/api':{
-        target:'http://localhost:8000',
+        //target:'http://localhost:8000',
+        target:'https://flixxit-backend-x6u9.onrender.com',
         changeOrigin:true,
       }
     }
