@@ -11,12 +11,7 @@ const PORT= process.env.PORT || 8000
 db()
 
 
-// const corsOptions = {
-//     origin: '*',
-//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//     credentials: true,
-//     optionsSuccessStatus: 204,
-//   };
+
   
 
 app.use(express.json())
