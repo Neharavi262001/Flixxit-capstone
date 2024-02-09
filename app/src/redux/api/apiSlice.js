@@ -1,7 +1,7 @@
 import {createApi,fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 
 const baseQuery=fetchBaseQuery({
-    baseUrl:''
+    baseUrl:'https://flixxit-backend-x6u9.onrender.com'
 })
 
 export const apiSlice=createApi({
