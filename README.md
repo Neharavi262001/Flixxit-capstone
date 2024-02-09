@@ -119,15 +119,10 @@ npm run server
 ```
 ### Usage
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 0bcf4ed387de05052933364a8be822d77a084a87
 To use Flixxit, follow these steps:
 
 1. **Register:**
    - Create a new account by signing up with your name, email ID and password.
-<<<<<<< HEAD
     - Remember to register using a strong password, including uppercase letters and numbers.
     - ![Register](./usage_images/register.png)
 
@@ -146,21 +141,8 @@ To use Flixxit, follow these steps:
 4. **Log In:**
    - Log in to your Flixxit account with your credentials.
     - ![Subscribe](./usage_images/login.png)
-=======
-   - Remember to register using  a strong password including Uppercase letters and numbers
-      - ![Register]()
-     
+   
 
-2. **Select a Plan:**
-   - Choose a subscription plan (monthly or yearly) that suits your preferences.
-
-3. **Checkout with Stripe:**
-   - Proceed to checkout using Stripe for secure and efficient payment processing.
-   - Use the following test card number for payments in India: **4000040008979**.
-
-4. **Log In:**
-   - Log in to your Flixxit account with your credentials.
->>>>>>> 0bcf4ed387de05052933364a8be822d77a084a87
 
 5. **Enjoy Watching:**
    - Explore the diverse range of content available on Flixxit.
@@ -186,7 +168,7 @@ Now you're all set to enjoy a personalized streaming experience on Flixxit!
 
 Now you're all set to enjoy a personalized streaming experience on Flixxit!
 
->>>>>>> 0bcf4ed387de05052933364a8be822d77a084a87
+
 
 
 
