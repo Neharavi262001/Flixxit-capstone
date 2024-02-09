@@ -8,11 +8,10 @@ Welcome to Flixxit, your personal streaming experience built with the MERN stack
 
 ## Table of  Contents
 - [Features](#features)
-- [Tech Stack](#technology-stack)
+- [Tech Stack](#tech-stack)
 - [Setup Instructions](#setup-instructions)
   - [Prerequisites](#prerequisites)
   - [Steps to Run Locally](#steps-to-run-locally)
-- [Deployment](#deployment)
 - [Usage](#usage)
 - [API References](#api-references)
 
@@ -118,6 +117,41 @@ Run server and app separately
  npm run app
 npm run server
 ```
+### Usage
+
+
+To use Flixxit, follow these steps:
+
+1. **Register:**
+   - Create a new account by signing up with your name, email ID and password.
+   - Remember to register using  a strong password including Uppercase letters and numbers
+      - ![Register]()
+     
+
+2. **Select a Plan:**
+   - Choose a subscription plan (monthly or yearly) that suits your preferences.
+
+3. **Checkout with Stripe:**
+   - Proceed to checkout using Stripe for secure and efficient payment processing.
+   - Use the following test card number for payments in India: **4000040008979**.
+
+4. **Log In:**
+   - Log in to your Flixxit account with your credentials.
+
+5. **Enjoy Watching:**
+   - Explore the diverse range of content available on Flixxit.
+   - Add programs to your watchlist for easy access.
+   - Rate and review your favorite titles.
+   - Utilize the search feature to discover new content.
+   - Use the video player with the "Skip Intro" feature for a seamless viewing experience.
+
+6. **Screenshots:**
+   - ![Screenshot 1](path/to/screenshot1.png)
+   - ![Screenshot 2](path/to/screenshot2.png)
+   - ![Screenshot 3](path/to/screenshot3.png)
+
+Now you're all set to enjoy a personalized streaming experience on Flixxit!
+
 
 
 
