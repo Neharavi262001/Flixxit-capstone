@@ -14,6 +14,7 @@ Welcome to Flixxit, your personal streaming experience built with the MERN stack
   - [Steps to Run Locally](#steps-to-run-locally)
 - [Usage](#usage)
 - [API References](#api-references)
+- [Contact Information](#contact-information)
 
 ## Features
 ### 1. User Accounts
@@ -124,23 +125,23 @@ To use Flixxit, follow these steps:
 1. **Register:**
    - Create a new account by signing up with your name, email ID and password.
     - Remember to register using a strong password, including uppercase letters and numbers.
-    - ![Register](./usage_images/register.png)
+    ![Register](./usage_images/register.png)
 
 
 2. **Select a Plan:**
    - Choose a subscription plan (monthly or yearly) that suits your preferences.
-    - ![Subscribe](./usage_images/sub%20plan.png)
+    ![Subscribe](./usage_images/sub%20plan.png)
 
 
 3. **Checkout with Stripe:**
    - Proceed to checkout using Stripe for secure and efficient payment processing.
    - Use the following test card number for payments in India: **4000003560000008**.
-    - ![Checkout](./usage_images/stripe%20checkout.png)
+    ![Checkout](./usage_images/stripe%20checkout.png)
 
 
 4. **Log In:**
    - Log in to your Flixxit account with your credentials.
-    - ![Subscribe](./usage_images/login.png)
+    ![Subscribe](./usage_images/login.png)
    
 
 
@@ -152,7 +153,7 @@ To use Flixxit, follow these steps:
    - Use the video player with the "Skip Intro" feature for a seamless viewing experience.
 
 6. **Screenshots:**
-<<<<<<< HEAD
+
    - ![Screenshot 1](./usage_images/dashboard.png)
    - ![Screenshot 2](./usage_images/carousels.png)
    - ![Screenshot 3](./usage_images/details.png)
@@ -171,3 +172,8 @@ Flixxit utilizes the following APIs for enriched content data and functionality:
 
 - [The Movie Database (TMDb)](https://www.themoviedb.org/) - A comprehensive movie and TV show database used for content information.
 - [Stripe](https://stripe.com/) - A secure and efficient payment processing API used for handling subscription payments.
+
+## contact-information
+neharavi262001@gmail.com
+
+
