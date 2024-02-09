@@ -12,7 +12,7 @@ db()
 
 
 const corsOptions = {
-    origin: 'https://flixxit-frontend-10hi.onrender.com',
+    origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     optionsSuccessStatus: 204,
