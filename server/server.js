@@ -11,7 +11,7 @@ const PORT= process.env.PORT || 8000
 db()
 
 const corsOptions={
-    origin: 'https://flixxit-frontend-10hi.onrender.com', 
+    origin: 'http://localhost:5174', 
     credentials: true 
 }
 
