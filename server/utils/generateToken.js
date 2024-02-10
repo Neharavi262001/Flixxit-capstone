@@ -12,7 +12,7 @@ const generateToken=(res,userId)=>{
     })
     
    
-    return token;
+    //return token;
     
 }
 
