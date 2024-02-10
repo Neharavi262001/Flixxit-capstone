@@ -36,13 +36,13 @@ const loginUser=asyncHandler(async(req,res)=>{
 
         if (hasActiveSubscription) {
 
-         const token= generateToken(user._id)
-         res.cookie('jwt',token,{
-          httpOnly:true,
-          secure:true,
-          maxAge:10*24*60*60*1000
+        generateToken(res,user._id)
+        //  res.cookie('jwt',token,{
+        //   httpOnly:true,
+        //   secure:true,
+        //   maxAge:10*24*60*60*1000
   
-      })
+          //})
          
 
 
@@ -108,13 +108,13 @@ const registerUser=asyncHandler(async(req,res)=>{
 
 
     if (user){
-        generateToken(user._id)
-         res.cookie('jwt',token,{
-        httpOnly:true,
-        secure:true,
-        maxAge:10*24*60*60*1000
+      generateToken(res,user._id)
+    //      res.cookie('jwt',token,{
+    //     httpOnly:true,
+    //     secure:true,
+    //     maxAge:10*24*60*60*1000
 
-    })
+    // })
         res.status(201).json({
             _id:user._id,
             name:user.name,
@@ -202,11 +202,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       throw new Error(error)
   }
 });
-
-
-
-
-
 
 
 module.exports={registerUser,loginUser,logoutUser,updateUserProfile,userProfile}
