@@ -36,7 +36,7 @@ const loginUser=asyncHandler(async(req,res)=>{
 
         if (hasActiveSubscription) {
 
-          generateToken(res,user._id)
+        generateToken(res,user._id)
 
         res.status(201).json({
           _id: user._id,
@@ -118,6 +118,8 @@ const registerUser=asyncHandler(async(req,res)=>{
 const logoutUser=asyncHandler(async(req,res)=>{
    res.cookie('jwt','',{
     httpOnly:true,
+    secure:true,
+    sameSite: 'None',
     expires:new Date(0)
    })
    res.status(200).json({message:"Logged out successfully"})
@@ -130,7 +132,6 @@ const userProfile=asyncHandler(async(req,res)=>{
         _id:_id,
         name:name,
         email:email,
-        
         stripeCustomerId:stripeCustomerId
     }
     res.status(200).json(user)
