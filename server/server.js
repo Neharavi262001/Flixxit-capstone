@@ -11,7 +11,7 @@ const PORT= process.env.PORT || 8000
 db()
 
 const corsOptions={
-    origin: 'https://flixxit-app-jfps.onrender.com/', 
+    origin: 'https://flixxit-app-jfps.onrender.com', 
     credentials: true 
 }
 
