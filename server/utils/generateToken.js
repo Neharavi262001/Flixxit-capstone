@@ -8,7 +8,7 @@ const generateToken=(res,userId)=>{
         httpOnly:true,
         secure:true,
         sameSite: 'None',
-        maxAge:10*24*60*60*1000
+        expires: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000)
 
     })
     
