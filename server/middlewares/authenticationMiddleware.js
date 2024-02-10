@@ -8,6 +8,7 @@ const protectedRoutes=asyncHandler(async(req,res,next)=>{
     if (token){
         try {
           const decoded=jwt.verify(token,process.env.SECRET_TOKEN) 
+        
           req.user=await User.findById(decoded.userId).select('-password') 
           next()
         } catch (error) {
@@ -22,21 +23,4 @@ const protectedRoutes=asyncHandler(async(req,res,next)=>{
 
 })
 
-// const protectedRoutes = asyncHandler(async (req, res, next) => {
-//   const authHeader = req.headers.authorization;
-
-//   if (authHeader && authHeader.startsWith('Bearer ')) {
-//       const token = authHeader.split(' ')[1]; 
-
-//       try {
-//           const decoded = jwt.verify(token, process.env.SECRET_TOKEN);
-//           req.user = await User.findById(decoded.userId).select('-password');
-//           next();
-//       } catch (error) {
-//           res.status(401).json({ error: 'Not authorized, invalid token' });
-//       }
-//   } else {
-//       res.status(401).json({ error: 'Not authorized, no token received' });
-//   }
-// });
 module.exports={protectedRoutes}
