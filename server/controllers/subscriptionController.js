@@ -47,8 +47,8 @@ const checkoutSession = asyncHandler(async (req, res) => {
       ],
 
       mode: 'subscription',
-      success_url: 'https://flixxit-frontend-10hi.onrender.com', 
-      cancel_url: 'https://flixxit-frontend-10hi.onrender.com/subscribe', 
+      success_url: 'https://flixxit-capstone.vercel.app', 
+      cancel_url: 'https://flixxit-capstone.vercel.app/subscribe', 
       
       customer: user.stripeCustomerId
       
