@@ -43,10 +43,7 @@ Welcome to Flixxit, your personal streaming experience built with the MERN stack
 ### 8. Video Player
 - Preview or play selected content with a "Skip Intro" feature.
 
-### 9. Payment and Subscription
-- Subscribe to monthly or yearly plans for full access.
-
-### 10. About Us
+### 9. About Us
 - Learn more about Flixxit, including features, origin, copyrights, terms, and conditions.
 ## Tech Stack
 
@@ -59,8 +56,6 @@ Welcome to Flixxit, your personal streaming experience built with the MERN stack
 ![React.js](https://img.shields.io/badge/Frontend-React.js-61DAFB?style=for-the-badge&logo=react&logoColor=white)
 
 ![Node.js](https://img.shields.io/badge/Backend-Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
-
-![Stripe](https://img.shields.io/badge/Payment-Stripe-008CDD?style=for-the-badge&logo=stripe&logoColor=white)
 
 ![JWT](https://img.shields.io/badge/Authentication-JWT-000000?style=for-the-badge&logo=json-web-tokens&logoColor=white)
 
@@ -91,8 +86,7 @@ For Stripe, go to [Stripe](https://stripe.com/) and get your publishable key and
 `PORT`
 `MONGODB_URI`
 `SECRET_TOKEN`
-`STRIPE_PUBLISHABLE_KEY`
-`STRIPE_SECRET_KEY`
+
 
 4. Navigate to the app directory  and install dependencies for frontend
 ```bash
@@ -108,13 +102,13 @@ Go to [The Movie Database (TMDb)](https://www.themoviedb.org/) and get your TMDB
 To run the app, navigate to root directory
 
 ```bash
- cd app
- npm run dev
+   cd app
+   npm run dev
 ```
 Run the  server 
 ```bash
    cd server
- npm run server
+   npm run server
 ```
 
 ### Usage
@@ -127,31 +121,17 @@ To use Flixxit, follow these steps:
     ![Register](./usage_images/register.png)
 
 
-2. **Select a Plan:**
-   - Choose a subscription plan (monthly or yearly) that suits your preferences.
-    ![Subscribe](./usage_images/sub%20plan.png)
 
 
-3. **Checkout with Stripe:**
-   - Proceed to checkout using Stripe for secure and efficient payment processing.
-   - Use the following test card number for payments in India: **4000003560000008**.
-    ![Checkout](./usage_images/stripe%20checkout.png)
 
-
-4. **Log In:**
-   - Log in to your Flixxit account with your credentials.
-    ![Subscribe](./usage_images/login.png)
-   
-
-
-5. **Enjoy Watching:**
+2. **Enjoy Watching:**
    - Explore the diverse range of content available on Flixxit.
    - Add programs to your watchlist for easy access.
    - Rate and review your favorite titles.
    - Utilize the search feature to discover new content.
    - Use the video player with the "Skip Intro" feature for a seamless viewing experience.
 
-6. **Screenshots:**
+3. **Screenshots:**
 
    - ![Screenshot 1](./usage_images/dashboard.png)
    - ![Screenshot 2](./usage_images/carousels.png)
@@ -170,7 +150,7 @@ Now you're all set to enjoy a personalized streaming experience on Flixxit!
 Flixxit utilizes the following APIs for enriched content data and functionality:
 
 - [The Movie Database (TMDb)](https://www.themoviedb.org/) - A comprehensive movie and TV show database used for content information.
-- [Stripe](https://stripe.com/) - A secure and efficient payment processing API used for handling subscription payments.
+
 
 ## contact-information
 neharavi262001@gmail.com
