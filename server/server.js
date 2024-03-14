@@ -11,6 +11,8 @@ const PORT= process.env.PORT || 8000
 db()
 
 const corsOptions={
+    //origin: 'http://localhost:5174',
+    
     origin: 'https://flixxit-capstone.vercel.app', 
     credentials: true 
 }

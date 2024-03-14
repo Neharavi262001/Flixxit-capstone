@@ -20,7 +20,7 @@ const Register = () => {
     
     useEffect(()=>{
         if (userInfo){
-            navigate('/subscribe')
+            navigate('/')
         }
     },[navigate,userInfo])
 

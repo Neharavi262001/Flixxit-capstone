@@ -75,7 +75,7 @@ const App = () => {
           
           <Route path='/login' element={<Login/>}/>
           <Route path='/register'element={<Register/>}/>
-          <Route path='/subscribe' element={<Subscription/>}/>
+          {/* <Route path='/subscribe' element={<Subscription/>}/> */}
           <Route path="*" element={<PageNotFound />} />
           <Route path='' element={<AuthRoutes/>}> 
             <Route

@@ -41,7 +41,7 @@ const Profile = () => {
           </button>
         </div>
         
-      <div className="user-subscriptions">
+      {/* <div className="user-subscriptions">
         <h3>Subscription details</h3>
         {isLoading && <p>Loading subscription details...</p>}
           {isError && <p>Error loading subscription details.</p>}
@@ -54,7 +54,7 @@ const Profile = () => {
              
          </div>
           )}
-      </div>
+      </div> */}
     </div>
       <div className="content-consumed">
         <h2>Continue watching</h2>

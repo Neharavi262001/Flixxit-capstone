@@ -17,10 +17,10 @@ const userSchema= new Schema({
         required:true,
         
     },
-    stripeCustomerId:{
-        type:String,
-        required:true,
-    },
+    // stripeCustomerId:{
+    //     type:String,
+    //     required:true,
+    // },
 },{
     timestamps:true
 })
