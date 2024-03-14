@@ -34,15 +34,18 @@ const Login = () => {
         e.preventDefault()
         try {
             const response=await login(formData).unwrap()
-            const hasActiveSubscription = response.hasActiveSubscription;
-            if (hasActiveSubscription) {
-                dispatch(setCredentials({...response}))
-                navigate('/');
-              } else {
+            dispatch(setCredentials({...response}))
+            toast.success('Logged in successfully')
+            navigate('/');
+            // const hasActiveSubscription = response.hasActiveSubscription;
+            // if (hasActiveSubscription) {
+            //     dispatch(setCredentials({...response}))
+            //     navigate('/');
+            //   } else {
                 
-                toast('User does not have an active subscription');
-                navigate('/subscribe')
-              }
+            //     toast('User does not have an active subscription');
+            //     navigate('/subscribe')
+            //   }
         } catch (err) {
             console.error('Error during login:', err);
             toast(err.data?.message || err.error);

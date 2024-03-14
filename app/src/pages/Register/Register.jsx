@@ -33,7 +33,7 @@ const Register = () => {
             try {
                 const response=await register({ name, email, password }).unwrap()
                 dispatch(setCredentials({...response}))
-                navigate('/subscribe')
+                navigate('/')
             } catch (err) {
                 if (err.data?.errors && err.data?.errors?.password) {
                     toast.error(err.data.errors.password.message);
