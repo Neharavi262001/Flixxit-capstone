@@ -1,7 +1,6 @@
 const asyncHandler=require('express-async-handler')
 const User =require('../models/userModel')
 const generateToken=require('../utils/generateToken')
-//const { stripe } = require('../utils/stripe')
 const passwordValidator = require('password-validator');
 const bcrypt=require('bcryptjs')
 
@@ -20,19 +19,6 @@ const loginUser=asyncHandler(async(req,res)=>{
    const user = await User.findOne({email})
   
    if (user &&(await user.matchPassword(password))){
-
-    // if (!user.stripeCustomerId) {
-    //   res.status(401).json({ error: 'User does not have a Stripe customer ID' });
-    //   return;
-    // }
-  
-      // const subscriptions = await stripe.subscriptions.list({
-      //   customer: user.stripeCustomerId,
-      // });
-      // const hasActiveSubscription = subscriptions.data.some(
-      //   (subscription) => subscription.status === 'active'
-      // );
-    
       try {
         if (user) {
 
@@ -42,7 +28,6 @@ const loginUser=asyncHandler(async(req,res)=>{
           _id: user._id,
           name: user.name,
           email: user.email,
-          //hasActiveSubscription: true,
         });
       } 
     } catch (error) {
@@ -72,21 +57,12 @@ const registerUser=asyncHandler(async(req,res)=>{
         throw Error('Email already in use')
     }
 
-    // //create stripe customer
-    // const customer=await stripe.customers.create({
-    //   email,
-    //   address: {
-    //     country: 'IN',
-    //   },
-    // })
    
     const user= await User.create(
         {
             name,
             email,
             password,
-           // stripeCustomerId:customer.id
-           
         }
     )
 
@@ -98,7 +74,6 @@ const registerUser=asyncHandler(async(req,res)=>{
             _id:user._id,
             name:user.name,
             email:user.email,
-            //stripeCustomerId:customer.id
         })
     }else{
         res.status(400)
@@ -117,15 +92,13 @@ const logoutUser=asyncHandler(async(req,res)=>{
    res.status(200).json({message:"Logged out successfully"})
 })
 
-//private
+
 const userProfile=asyncHandler(async(req,res)=>{
     const {_id,name,email}=req.user
     const user ={
         _id:_id,
         name:name,
         email:email,
-        
-        //stripeCustomerId:stripeCustomerId
     }
     res.status(200).json(user)
 })
@@ -158,13 +131,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
       const updatedUser = await user.save();
 
-    //     const subscriptions = await stripe.subscriptions.list({
-    //   customer: user.stripeCustomerId,
-    // });
-
-    // const hasActiveSubscription = subscriptions.data.some(
-    //   (subscription) => subscription.status === 'active'
-    // );
 
     generateToken(res, updatedUser._id);
 
@@ -172,7 +138,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       _id: updatedUser._id,
       name: updatedUser.name,
       email: updatedUser.email,
-      //hasActiveSubscription: hasActiveSubscription,
       message: 'Profile updated successfully',
     });
   } catch (error) {

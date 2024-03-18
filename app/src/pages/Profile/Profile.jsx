@@ -4,13 +4,12 @@ import './profile.css'
 import {FaUserAlt} from 'react-icons/fa'
 import {  useNavigate } from 'react-router-dom'
 import profileImage from '../../images/user_profile_image.png'
-import {useGetUserSubscriptionQuery,useClearWatchHistoryMutation}from '../../redux/user/userApiSlice'
+import {useClearWatchHistoryMutation}from '../../redux/user/userApiSlice'
 import WatchHistory from '../../components/WatchHistory/WatchHistory'
 
 const Profile = () => {
   const navigate=useNavigate()
   const {userInfo}=useSelector((state)=>state.auth)
-  const {data:getUserSubscription,isLoading, isError}=useGetUserSubscriptionQuery()
   const [clearWatchHistory]=useClearWatchHistoryMutation()
   
   const handleClearWatchHistory=async()=>{
@@ -40,21 +39,7 @@ const Profile = () => {
           Update profile
           </button>
         </div>
-        
-      {/* <div className="user-subscriptions">
-        <h3>Subscription details</h3>
-        {isLoading && <p>Loading subscription details...</p>}
-          {isError && <p>Error loading subscription details.</p>}
-          {getUserSubscription && (
-             <div className="subscription-detail">
-             <p><strong>Plan:</strong> {getUserSubscription[0].planName}</p>
-             <p className="amount"><strong>Amount:</strong> ₹ {getUserSubscription[0]?.amount} / {getUserSubscription[0].plan}</p>
-             <p className="status"><strong>Status:</strong> {getUserSubscription[0]?.status}</p>
-             <p className="date"><strong>Next Billing Date:</strong> {getUserSubscription[0]?.current_period_end}</p>
-             
-         </div>
-          )}
-      </div> */}
+
     </div>
       <div className="content-consumed">
         <h2>Continue watching</h2>

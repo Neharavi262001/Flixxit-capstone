@@ -17,10 +17,6 @@ router.get('/profile',protectedRoutes,userProfile)
 router.put('/profile',protectedRoutes,updateUserProfile)
 
 
-// router.get('/subscribe',viewAvailableSubscriptions)
-// router.post('/checkout',protectedRoutes,checkoutSession)
-// router.get('/subscriptionDetails',protectedRoutes,viewUserSubscriptionDetails)
-
 router.get('/watchList',protectedRoutes,getWatchlist)
 router.post('/watchList',protectedRoutes,addToWatchlist)
 router.delete('/watchList/:contentId',protectedRoutes,removeFromWatchlist)

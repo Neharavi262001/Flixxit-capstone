@@ -18,7 +18,6 @@ import {fetchUrl,fetchGenres} from '../src/redux/content/contentSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import Explore from './pages/Explore/Explore';
 import Watchlist from './pages/Watchlist/Watchlist';
-import Subscription from './pages/Subscription/Subscription';
 import Player from './pages/Player/Player';
 import AboutUs from './pages/AboutUs/AboutUs';
 import SearchBar from './components/SearchBar/SearchBar';
@@ -75,7 +74,6 @@ const App = () => {
           
           <Route path='/login' element={<Login/>}/>
           <Route path='/register'element={<Register/>}/>
-          {/* <Route path='/subscribe' element={<Subscription/>}/> */}
           <Route path="*" element={<PageNotFound />} />
           <Route path='' element={<AuthRoutes/>}> 
             <Route
